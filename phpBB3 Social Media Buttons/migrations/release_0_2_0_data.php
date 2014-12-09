@@ -47,7 +47,4 @@ class release_0_2_0_data extends \phpbb\db\migration\migration
 			array('config.add', array('socialbuttons_version', '0.2.0')),
 		);
 	}
-
-
-
 }

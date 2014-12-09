@@ -60,7 +60,7 @@ class listener implements EventSubscriberInterface
 	public function display_socialbuttons($event)
 	{
 		global $config;
-		$url = generate_board_url() . '/viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id'];
+		$url = urlencode(generate_board_url() . '/viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id']);
 		$shares = $this->get_share_count($url);
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
