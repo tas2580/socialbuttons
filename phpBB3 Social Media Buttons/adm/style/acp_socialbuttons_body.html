@@ -1,0 +1,62 @@
+<!-- INCLUDE overall_header.html -->
+<h1>{L_ACP_SOCIALBUTTONS_TITLE}</h1>
+
+
+<form method="post" action="{U_ACTION}">
+
+<fieldset>
+	<legend>{L_ACP_SETTINGS}</legend>
+	<dl>
+		<dt><label for="position">{L_ACP_POSITION}</label><br /><span>{L_ACP_POSITION_EXPLAIN}</span></dt>
+		<dd><select id="position" name="position">{POSITION_OPTIONS}</select></dd>
+	</dl>
+	<dl>
+		<dt><label for="cachetime">{L_ACP_CACHETIME}</label><br /><span>{L_ACP_CACHETIME_EXPLAIN}</span></dt>
+		<dd><input type="number" id="cachetime" name="cachetime" value="{CACHETIME}" /> <select id="multiplicator" name="multiplicator">{MULTIPLICATOR_OPTIONS}</select></dd>
+	</dl>
+</fieldset>
+
+<fieldset>
+	<legend>{L_ACP_SET_PLATFORMS}</legend>
+	<dl>
+		<dt><label for="facebook">{L_ACP_FACEBOOK}</label></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="facebook" name="facebook" value="1"<!-- IF S_FACEBOOK --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="facebook" value="0"<!-- IF not S_FACEBOOK --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="twitter">{L_ACP_TWITTER}</label></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="twitter" name="twitter" value="1"<!-- IF S_TWITTER --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="twitter" value="0"<!-- IF not S_TWITTER --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="google">{L_ACP_GOOGLE}</label></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="google" name="google" value="1"<!-- IF S_GOOGLE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="google" value="0"<!-- IF not S_GOOGLE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="linkedin">{L_ACP_LINKEDIN}</label></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="linkedin" name="linkedin" value="1"<!-- IF S_LINKEDIN --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="linkedin" value="0"<!-- IF not S_LINKEDIN --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+</fieldset>
+
+<fieldset>
+	<legend>{L_ACP_SUBMIT}</legend>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+	</p>
+	{S_FORM_TOKEN}
+</fieldset>
+
+
+</form>
+<!-- INCLUDE overall_footer.html -->

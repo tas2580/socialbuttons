@@ -1,0 +1,85 @@
+.socialmedia1,.socialmedia2,.socialmedia3,.socialmedia4
+{
+	background: url('sprite.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmedia1:hover,.socialmedia2:hover,.socialmedia3:hover,.socialmedia4:hover
+{	
+	transition:all .3s;
+	text-decoration:none;
+}
+.socialmedia1
+{
+	background-position:0 0;
+}
+.socialmedia1:hover
+{
+	background-position:0 -28px;
+}
+.socialmedia3
+{
+	background-position:-28px 0;
+}
+.socialmedia3:hover
+{
+	background-position:-28px -28px;
+}
+.socialmedia2
+{
+	background-position:-56px 0;
+}
+.socialmedia2:hover
+{
+	background-position:-56px -28px;
+}
+.socialmedia4
+{
+	background-position:-84px 0px;
+}
+.socialmedia4:hover
+{
+	background-position:-84px -28px;
+}
+.social_count
+{
+	display:inline-block;
+	width:22px;
+	position:relative;
+	background:#ccc;
+	border:1px solid #000;
+	padding:2px;
+	margin:3px 8px;
+	border-radius:3px;
+	font-size:.9em;
+	color:#000;
+}
+.social_count:after,.social_count:before
+{
+	right:100%;
+	top:50%;
+	border:solid transparent;
+	content:' ';
+	height:0;
+	width:0;
+	position:absolute;
+}
+.social_count:after
+{
+	border-color:rgba(204,204,204,0);
+	border-right-color:#ccc;
+	border-width:4px;
+	margin-top:-4px;
+}
+.social_count:before
+{
+	border-color:rgba(0,0,0,0);
+	border-right-color:#000;
+	border-width:5px;
+	margin-top:-5px;
+}
+

@@ -1,0 +1,8 @@
+services:
+    tas2580.socialbuttons.listener:
+        class: tas2580\socialbuttons\event\listener
+        arguments:
+            - @config
+            - @template
+        tags:
+            - { name: event.listener }
