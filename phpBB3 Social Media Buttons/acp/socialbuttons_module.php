@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580 (https://tas2580.net)
+* @copyright (c) 2014 tas2580
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -38,6 +38,7 @@ class socialbuttons_module
 			$config->set('socialbuttons_twitter', $request->variable('twitter', 0));
 			$config->set('socialbuttons_google', $request->variable('google', 0));
 			$config->set('socialbuttons_linkedin', $request->variable('linkedin', 0));
+			$config->set('socialbuttons_style', $request->variable('style', 1));
 
 			trigger_error($user->lang('ACP_SAVED') . adm_back_link($this->u_action));
 		}
@@ -46,10 +47,12 @@ class socialbuttons_module
         // Send the curent settings to template
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 0;
 		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : 1;
+		$style = isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1;
         $template->assign_vars(array(
 			'U_ACTION'					=> $this->u_action,
             'POSITION_OPTIONS'			=> $this->position_select($position),
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
+			'BUTTON_STYLES'				=> $this->button_style($style),
 			'CACHETIME'					=> isset($config['socialbuttons_cachetime']) ? $config['socialbuttons_cachetime'] : 0,
 			'S_FACEBOOK'				=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
 			'S_TWITTER'					=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
@@ -57,6 +60,21 @@ class socialbuttons_module
 			'S_LINKEDIN'				=> isset($config['socialbuttons_linkedin']) ? $config['socialbuttons_linkedin'] : '',
         ));
     }
+
+	private function button_style($selected)
+	{
+		global  $phpbb_extension_manager;
+		$path = $phpbb_extension_manager->get_extension_path('tas2580/socialbuttons', true) . 'styles/all/template/';
+		$return = '';
+		for($i = 1; $i <= 10; $i++)
+		{
+			$checked = ($selected == $i) ? ' checked="checked"' : '';
+			$return .= '<input type="radio"' . $checked . ' class="radio" id="style" name="style" value="' . $i . '" /> <img align="top" src="' . $path . 'sprite' . $i . '.png" alt="style' . $i . '" /><br /><br />';
+		}
+		return $return;
+
+	}
+
 
 	private function position_select($selected)
 	{

@@ -60,22 +60,23 @@ class listener implements EventSubscriberInterface
 	public function display_socialbuttons($event)
 	{
 		global $config;
-		$url = urlencode(generate_board_url() . '/viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id']);
+		$url = urlencode(generate_board_url() . append_sid('viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id']));
 		$shares = $this->get_share_count($url);
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
-			'TOPIC_TITLE'		=> $event['topic_data']['topic_title'],
-			'U_TOPIC'			=> $url,
-			'SHARES_FACEBOOK'	=> (int) $shares['facebook'],
-			'SHARES_TWITTER'	=> (int) $shares['twitter'],
-			'SHARES_GOOGLE'		=> (int) $shares['google'],
-			'SHARES_LINKEDIN'	=> (int) $shares['linkedin'],
-			'S_FACEBOOK'		=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
-			'S_TWITTER'			=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
-			'S_GOOGLE'			=> isset($config['socialbuttons_google']) ? $config['socialbuttons_google'] : '',
-			'S_LINKEDIN'		=> isset($config['socialbuttons_linkedin']) ? $config['socialbuttons_linkedin'] : '',
-			'S_SHOW_AT_TOP'		=> ($position == 0 || $position == 1) ? true : false,
-			'S_SHOW_AT_BOTTOM'	=> ($position == 0 || $position == 2) ? true : false,
+			'TOPIC_TITLE'			=> $event['topic_data']['topic_title'],
+			'U_TOPIC'				=> $url,
+			'SOCIAL_MEDIA_CLASS'	=> 'socialmediabuttons' . (isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1),
+			'SHARES_FACEBOOK'		=> (int) $shares['facebook'],
+			'SHARES_TWITTER'		=> (int) $shares['twitter'],
+			'SHARES_GOOGLE'			=> (int) $shares['google'],
+			'SHARES_LINKEDIN'		=> (int) $shares['linkedin'],
+			'S_FACEBOOK'			=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
+			'S_TWITTER'				=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
+			'S_GOOGLE'				=> isset($config['socialbuttons_google']) ? $config['socialbuttons_google'] : '',
+			'S_LINKEDIN'			=> isset($config['socialbuttons_linkedin']) ? $config['socialbuttons_linkedin'] : '',
+			'S_SHOW_AT_TOP'			=> ($position == 0 || $position == 1) ? true : false,
+			'S_SHOW_AT_BOTTOM'		=> ($position == 0 || $position == 2) ? true : false,
 		));
 	}
 

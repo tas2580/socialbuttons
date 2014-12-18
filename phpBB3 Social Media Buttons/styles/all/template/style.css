@@ -1,6 +1,96 @@
-.socialmedia1,.socialmedia2,.socialmedia3,.socialmedia4
+.socialmediabuttons1
 {
-	background: url('sprite.png') no-repeat;
+	background: url('sprite1.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons2
+{
+	background: url('sprite2.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons3
+{
+	background: url('sprite3.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons4
+{
+	background: url('sprite4.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons5
+{
+	background: url('sprite5.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons6
+{
+	background: url('sprite6.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons7
+{
+	background: url('sprite7.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons8
+{
+	background: url('sprite8.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons9
+{
+	background: url('sprite9.png') no-repeat;
+	display:inline-block;
+	width:28px;
+	height:28px;
+	text-decoration:none;
+	transition: all .3s;
+	vertical-align: middle;
+}
+.socialmediabuttons10
+{
+	background: url('sprite10.png') no-repeat;
 	display:inline-block;
 	width:28px;
 	height:28px;

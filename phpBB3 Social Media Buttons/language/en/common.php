@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580 (https://tas2580.net)
+* @copyright (c) 2014 tas2580
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -42,4 +42,6 @@ $lang = array_merge($lang, array(
 	'ACP_GOOGLE'				=> 'Google Plus',
 	'ACP_LINKEDIN'				=> 'Linkedin',
 	'ACP_SAVED'					=> 'Social Media Buttons settings updated.',
+	'ACP_STYLE'					=> 'Style',
+	'ACP_STYLE_EXPLAIN'			=> 'Choose a style for the buttons',
 ));
