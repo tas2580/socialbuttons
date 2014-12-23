@@ -1,9 +1,10 @@
 <?php
 /**
 *
-* @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* Precise Similar Topics
+*
+* @copyright (c) 2013 Matt Friedman
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 

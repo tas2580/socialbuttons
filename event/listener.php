@@ -60,12 +60,11 @@ class listener implements EventSubscriberInterface
 	public function display_socialbuttons($event)
 	{
 		global $config;
-		$url = urlencode(generate_board_url() . append_sid('viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id']));
+		$url = urlencode(generate_board_url() . '/' . append_sid('viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id']));
 		$shares = $this->get_share_count($url);
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
 			'TOPIC_TITLE'			=> $event['topic_data']['topic_title'],
-			'U_TOPIC'				=> $url,
 			'SOCIAL_MEDIA_CLASS'	=> 'socialmediabuttons' . (isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1),
 			'SHARES_FACEBOOK'		=> (int) $shares['facebook'],
 			'SHARES_TWITTER'		=> (int) $shares['twitter'],
@@ -99,14 +98,14 @@ class listener implements EventSubscriberInterface
 			{
 				if($pageinfo = json_decode(@file_get_contents("https://graph.facebook.com/" . $url), true))
 				{
-					$shares['facebook'] = $pageinfo['shares'];
+					$shares['facebook'] = isset($pageinfo['shares']) ? $pageinfo['shares'] : 0;
 				}
 			}
 			if(isset($config['socialbuttons_twitter']) && ($config['socialbuttons_twitter'] == 1))
 			{
 				if($pageinfo = json_decode(@file_get_contents("https://cdn.api.twitter.com/1/urls/count.json?url=" . $url), true))
 				{
-					$shares['twitter'] = $pageinfo['count'];
+					$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 				}
 			}
 			if(isset($config['socialbuttons_google']) && ($config['socialbuttons_google'] == 1))
@@ -114,14 +113,14 @@ class listener implements EventSubscriberInterface
 				if($data = @file_get_contents("https://plusone.google.com/_/+1/fastbutton?url=" . $url))
 				{
 					preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $data, $matches);
-					$shares['google'] = $matches[1];
+					$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
 				}
 			}
 			if(isset($config['socialbuttons_linkedin']) && ($config['socialbuttons_linkedin'] == 1))
 			{
 				if($pageinfo = json_decode(@file_get_contents('http://www.linkedin.com/countserv/count/share?url=' . $url . '&format=json'), true))
 				{
-					$shares['linkedin'] = $pageinfo['count'];
+					$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 				}
 			}
 			$json = json_encode($shares);
