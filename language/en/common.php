@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580
+* @copyright (c) 2014 tas2580 (https://tas2580.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -23,7 +23,6 @@ $lang = array_merge($lang, array(
 	'SHARE_TWITTER'				=> 'Share on Twitter',
 	'SHARE_GOOGLEPLUS'			=> 'Share on Google+',
 	'SHARE_LINKEDIN'			=> 'Share on Linkedin',
-	'ACP_SOCIALBUTTONS_TITLE'	=> 'Social Media Buttons',
 	'ACP_SETTINGS'				=> 'Settings',
 	'ACP_POSITION'				=> 'Position',
 	'ACP_POSITION_EXPLAIN'		=> 'Choose a position where the buttons should be displayed.',

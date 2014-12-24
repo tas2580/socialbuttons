@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580
+* @copyright (c) 2014 tas2580 (https://tas2580.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -21,22 +21,6 @@ class release_0_3_0_data extends \phpbb\db\migration\migration
 		return array(
 			// Add configs
 			array('config.add', array('socialbuttons_style', '1')),
-
-			// Add ACP module
-			array('module.add', array(
-				'acp',
-				'ACP_CAT_DOT_MODS',
-				'ACP_SOCIALBUTTONS_TITLE'
-			)),
-			array('module.add', array(
-				'acp',
-				'ACP_SOCIALBUTTONS_TITLE',
-				array(
-					'module_basename'	=> '\tas2580\socialbuttons\acp\socialbuttons_module',
-					'modes'				=> array('settings'),
-				),
-			)),
-			// Keep track of version in the database
 			array('config.add', array('socialbuttons_version', '0.3.0')),
 		);
 	}

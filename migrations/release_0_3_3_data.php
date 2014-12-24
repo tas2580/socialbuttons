@@ -9,18 +9,18 @@
 
 namespace tas2580\socialbuttons\migrations;
 
-class release_0_3_2_data extends \phpbb\db\migration\migration
+class release_0_3_3_data extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['socialbuttons_version']) && version_compare($this->config['socialbuttons_version'], '0.3.2', '>=');
+		return isset($this->config['socialbuttons_version']) && version_compare($this->config['socialbuttons_version'], '0.3.3', '>=');
 	}
 
 	public function update_data()
 	{
 		return array(
 			// Add ACP module
-			array('config.add', array('socialbuttons_version', '0.3.2')),
+			array('config.add', array('socialbuttons_version', '0.3.3')),
 		);
 	}
 }

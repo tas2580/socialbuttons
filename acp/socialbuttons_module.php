@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580
+* @copyright (c) 2014 tas2580 (https://tas2580.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -17,6 +17,10 @@ class socialbuttons_module
     {
         global $config, $user, $template, $request;
 
+		
+		$user->add_lang_ext('tas2580/socialbuttons', 'common');
+		
+		
         $this->tpl_name = 'acp_socialbuttons_body';
         $this->page_title = $user->lang('ACP_SOCIALBUTTONS_TITLE');
 

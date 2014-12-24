@@ -23,7 +23,6 @@ $lang = array_merge($lang, array(
 	'SHARE_TWITTER'				=> 'Twitter&#39;da Paylaş',
 	'SHARE_GOOGLEPLUS'			=> 'Google+&#39;ta Paylaş',
 	'SHARE_LINKEDIN'			=> 'Linkedin&#39;de Paylaş',
-	'ACP_SOCIALBUTTONS_TITLE'	=> 'Sosyal Medya Butonları',
 	'ACP_SETTINGS'				=> 'Ayarlar',
 	'ACP_POSITION'				=> 'Pozisyon',
 	'ACP_POSITION_EXPLAIN'		=> 'Butonların yeri için pozisyon belirleyin',

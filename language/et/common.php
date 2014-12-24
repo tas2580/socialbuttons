@@ -23,7 +23,6 @@ $lang = array_merge($lang, array(
 	'SHARE_TWITTER'				=> 'Jaga Twitteris',
 	'SHARE_GOOGLEPLUS'			=> 'Jaga Google+\'is',
 	'SHARE_LINKEDIN'			=> 'Jaga Linkedin\'is',
-	'ACP_SOCIALBUTTONS_TITLE'	=> 'Sotsiaalmeedia nupud',
 	'ACP_SETTINGS'				=> 'Seaded',
 	'ACP_POSITION'				=> 'Asukoht',
 	'ACP_POSITION_EXPLAIN'		=> 'Asukoht, kus soovid nuppe näidata.',

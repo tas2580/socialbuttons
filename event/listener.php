@@ -46,7 +46,6 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.viewtopic_modify_page_title'		=> 'display_socialbuttons',
-			'core.user_setup'          				=> 'load_language_on_setup',
 		);
 	}
 
@@ -59,17 +58,17 @@ class listener implements EventSubscriberInterface
 	*/
 	public function display_socialbuttons($event)
 	{
-		global $config;
+		global $config, $user;
 		$url = urlencode(generate_board_url() . '/' . append_sid('viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id']));
 		$shares = $this->get_share_count($url);
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
 			'TOPIC_TITLE'			=> $event['topic_data']['topic_title'],
 			'SOCIAL_MEDIA_CLASS'	=> 'socialmediabuttons' . (isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1),
-			'SHARES_FACEBOOK'		=> (int) $shares['facebook'],
-			'SHARES_TWITTER'		=> (int) $shares['twitter'],
-			'SHARES_GOOGLE'			=> (int) $shares['google'],
-			'SHARES_LINKEDIN'		=> (int) $shares['linkedin'],
+			'SHARES_FACEBOOK'		=> isset($shares['facebook']) ? (int) $shares['facebook'] : 0,
+			'SHARES_TWITTER'		=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
+			'SHARES_GOOGLE'			=> isset($shares['google']) ? (int) $shares['google'] : 0,
+			'SHARES_LINKEDIN'		=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
 			'S_FACEBOOK'			=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
 			'S_TWITTER'				=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
 			'S_GOOGLE'				=> isset($config['socialbuttons_google']) ? $config['socialbuttons_google'] : '',
@@ -77,6 +76,7 @@ class listener implements EventSubscriberInterface
 			'S_SHOW_AT_TOP'			=> ($position == 0 || $position == 1) ? true : false,
 			'S_SHOW_AT_BOTTOM'		=> ($position == 0 || $position == 2) ? true : false,
 		));
+		$user->add_lang_ext('tas2580/socialbuttons', 'common');
 	}
 
 
@@ -90,7 +90,6 @@ class listener implements EventSubscriberInterface
 		$cachetime = ((int) $cache_time * (int) $multiplicator);
 		$cache_file = $phpbb_root_path . 'cache/' . md5($url) . '.json';
 		$filetime = file_exists($cache_file) ? filemtime($cache_file) : 0;
-
 
 		if(($filetime == 0) || ($filetime < (time() - $cachetime)))
 		{
@@ -135,22 +134,4 @@ class listener implements EventSubscriberInterface
 		}
 		return $shares;
 	}
-
-
-	/**
-	* Add custom language variables
-	*
-	* @param object $event The event object
-	* @return null
-	* @access public
-	*/
-    public function load_language_on_setup($event)
-    {
-        $lang_set_ext = $event['lang_set_ext'];
-        $lang_set_ext[] = array(
-            'ext_name' => 'tas2580/socialbuttons',
-            'lang_set' => 'common',
-        );
-        $event['lang_set_ext'] = $lang_set_ext;
-    }
 }

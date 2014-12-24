@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 test
-* @copyright (c) 2014 tas2580
+* @copyright (c) 2014 tas2580 (https://tas2580.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -16,7 +16,7 @@ class socialbuttons_info
         return array(
             'filename'    => '\tas2580\socialbuttons\socialbuttons_module',
             'title'        => 'ACP_SOCIALBUTTONS_TITLE',
-            'version'    => '0.2.0',
+            'version'    => '0.3.3',
             'modes'        => array(
                 'settings'    => array(
                     'title' => 'ACP_SOCIALBUTTONS_TITLE',
