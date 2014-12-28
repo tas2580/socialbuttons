@@ -93,35 +93,96 @@ class listener implements EventSubscriberInterface
 
 		if(($filetime == 0) || ($filetime < (time() - $cachetime)))
 		{
-			if(isset($config['socialbuttons_facebook']) && ($config['socialbuttons_facebook'] == 1))
+			if(function_exists('curl_multi_init'))
 			{
-				if($pageinfo = json_decode(@file_get_contents("https://graph.facebook.com/" . $url), true))
+				if(isset($config['socialbuttons_facebook']) && ($config['socialbuttons_facebook'] == 1))
 				{
-					$shares['facebook'] = isset($pageinfo['shares']) ? $pageinfo['shares'] : 0;
+					$querys['facebook']	= 'https://www.facebook.com/plugins/like.php?&layout=box_count&href=' . $url;
+				}
+				if(isset($config['socialbuttons_twitter']) && ($config['socialbuttons_twitter'] == 1))
+				{
+					$querys['twitter'] = 'https://cdn.api.twitter.com/1/urls/count.json?url=' . $url;
+				}
+				if(isset($config['socialbuttons_google']) && ($config['socialbuttons_twitter'] == 1))
+				{
+					$querys['google'] = 'https://plusone.google.com/_/+1/fastbutton?url=' . $url;
+				}
+				if(isset($config['socialbuttons_linkedin']) && ($config['socialbuttons_twitter'] == 1))
+				{
+					$querys['linkedin'] = 'https://www.linkedin.com/countserv/count/share?format=json&url=' . $url;
+				}
+
+				$mh = curl_multi_init();
+				foreach($querys as $platform => $url)
+				{
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_NOBODY, false);
+					curl_setopt($ch, CURLOPT_HEADER, false); 
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+					curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; rv:31.0) Gecko/20100101 Firefox/31.0'); 
+					curl_multi_add_handle($mh, $ch);
+					$handle[$platform] = $ch;
+				}
+				do 
+				{
+					curl_multi_exec($mh, $running);
+				} 
+				while($running > 0);
+
+				foreach($handle as $platform => $ch)
+				{
+					$handle = curl_multi_info_read($mh);
+					$content[$platform] = curl_multi_getcontent($ch);
+					curl_multi_remove_handle($mh, $handle['handle'] );
+				}
+				curl_multi_close($mh);
+
+				preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $content['google'], $matches);
+				$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
+
+				preg_match('#<span class="pluginCountTextDisconnected">([0-9]+)</span>#s', $content['facebook'], $matches);
+				$shares['facebook'] = isset($matches[1]) ? $matches[1] : 0 ;
+
+				$pageinfo = json_decode($content['twitter'], true);
+				$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
+
+				$pageinfo = json_decode($content['linkedin'], true);
+				$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
+			}
+			else
+			{
+				if(isset($config['socialbuttons_facebook']) && ($config['socialbuttons_facebook'] == 1))
+				{
+					if($pageinfo = json_decode(@file_get_contents("https://graph.facebook.com/" . $url), true))
+					{
+						$shares['facebook'] = isset($pageinfo['shares']) ? $pageinfo['shares'] : 0;
+					}
+				}
+				if(isset($config['socialbuttons_twitter']) && ($config['socialbuttons_twitter'] == 1))
+				{
+					if($pageinfo = json_decode(@file_get_contents("https://cdn.api.twitter.com/1/urls/count.json?url=" . $url), true))
+					{
+						$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
+					}
+				}
+				if(isset($config['socialbuttons_google']) && ($config['socialbuttons_google'] == 1))
+				{
+					if($data = @file_get_contents("https://plusone.google.com/_/+1/fastbutton?url=" . $url))
+					{
+						preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $data, $matches);
+						$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
+					}
+				}
+				if(isset($config['socialbuttons_linkedin']) && ($config['socialbuttons_linkedin'] == 1))
+				{
+					if($pageinfo = json_decode(@file_get_contents('http://www.linkedin.com/countserv/count/share?url=' . $url . '&format=json'), true))
+					{
+						$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
+					}
 				}
 			}
-			if(isset($config['socialbuttons_twitter']) && ($config['socialbuttons_twitter'] == 1))
-			{
-				if($pageinfo = json_decode(@file_get_contents("https://cdn.api.twitter.com/1/urls/count.json?url=" . $url), true))
-				{
-					$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
-				}
-			}
-			if(isset($config['socialbuttons_google']) && ($config['socialbuttons_google'] == 1))
-			{
-				if($data = @file_get_contents("https://plusone.google.com/_/+1/fastbutton?url=" . $url))
-				{
-					preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $data, $matches);
-					$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
-				}
-			}
-			if(isset($config['socialbuttons_linkedin']) && ($config['socialbuttons_linkedin'] == 1))
-			{
-				if($pageinfo = json_decode(@file_get_contents('http://www.linkedin.com/countserv/count/share?url=' . $url . '&format=json'), true))
-				{
-					$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
-				}
-			}
+			
 			$json = json_encode($shares);
 			$handle = fopen($cache_file, 'w');
 			fwrite($handle, $json);
