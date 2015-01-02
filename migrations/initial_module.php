@@ -23,7 +23,8 @@ class initial_module extends \phpbb\db\migration\migration
 			array('config.add', array('socialbuttons_twitter', '1')),
 			array('config.add', array('socialbuttons_google', '1')),
 			array('config.add', array('socialbuttons_linkedin', '1')),
-
+			array('config.add', array('socialbuttons_showshares', '1')),
+			
 			// Add ACP module
 			array('module.add', array(
 				'acp',

@@ -60,15 +60,26 @@ class listener implements EventSubscriberInterface
 	{
 		global $config, $user;
 		$url = urlencode(generate_board_url() . '/' . append_sid('viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id']));
-		$shares = $this->get_share_count($url);
+		
+		// Display the shares count
+		if(isset($config['socialbuttons_showshares']) && $config['socialbuttons_showshares'])
+		{
+			$shares = $this->get_share_count($url);
+			$this->template->assign_vars(array(
+				'S_SHOWSHARES'			=> true,
+				'SHARES_FACEBOOK'		=> isset($shares['facebook']) ? (int) $shares['facebook'] : 0,
+				'SHARES_TWITTER'		=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
+				'SHARES_GOOGLE'			=> isset($shares['google']) ? (int) $shares['google'] : 0,
+				'SHARES_LINKEDIN'		=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
+			));	
+		}
+		
+		// Display the buttons
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
 			'TOPIC_TITLE'			=> $event['topic_data']['topic_title'],
+			'U_TOPICLINK'			=> $url,
 			'SOCIAL_MEDIA_CLASS'	=> 'socialmediabuttons' . (isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1),
-			'SHARES_FACEBOOK'		=> isset($shares['facebook']) ? (int) $shares['facebook'] : 0,
-			'SHARES_TWITTER'		=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
-			'SHARES_GOOGLE'			=> isset($shares['google']) ? (int) $shares['google'] : 0,
-			'SHARES_LINKEDIN'		=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
 			'S_FACEBOOK'			=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
 			'S_TWITTER'				=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
 			'S_GOOGLE'				=> isset($config['socialbuttons_google']) ? $config['socialbuttons_google'] : '',
@@ -88,13 +99,16 @@ class listener implements EventSubscriberInterface
 		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : 1;
 
 		$cachetime = ((int) $cache_time * (int) $multiplicator);
-		$cache_file = $phpbb_root_path . 'cache/' . md5($url) . '.json';
+		$cache_file = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/' . md5($url) . '.json';
 		$filetime = file_exists($cache_file) ? filemtime($cache_file) : 0;
 
+		// If cache is too old or we have no cache query the platforms
 		if(($filetime == 0) || ($filetime < (time() - $cachetime)))
 		{
+			// Do we have curl?
 			if(function_exists('curl_multi_init'))
 			{
+				// Collect the querys
 				if(isset($config['socialbuttons_facebook']) && ($config['socialbuttons_facebook'] == 1))
 				{
 					$querys['facebook']	= 'https://www.facebook.com/plugins/like.php?&layout=box_count&href=' . $url;
@@ -112,6 +126,7 @@ class listener implements EventSubscriberInterface
 					$querys['linkedin'] = 'https://www.linkedin.com/countserv/count/share?format=json&url=' . $url;
 				}
 
+				// Set curl options for each URL
 				$mh = curl_multi_init();
 				foreach($querys as $platform => $url)
 				{
@@ -124,12 +139,15 @@ class listener implements EventSubscriberInterface
 					curl_multi_add_handle($mh, $ch);
 					$handle[$platform] = $ch;
 				}
+				
+				// Exec the query
 				do 
 				{
 					curl_multi_exec($mh, $running);
 				} 
 				while($running > 0);
 
+				// Get the resonse
 				foreach($handle as $platform => $ch)
 				{
 					$handle = curl_multi_info_read($mh);
@@ -138,6 +156,7 @@ class listener implements EventSubscriberInterface
 				}
 				curl_multi_close($mh);
 
+				//Get the number of shares from response
 				preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $content['google'], $matches);
 				$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
 
@@ -150,44 +169,42 @@ class listener implements EventSubscriberInterface
 				$pageinfo = json_decode($content['linkedin'], true);
 				$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 			}
+			// no curl we have to do it the old way
 			else
 			{
 				if(isset($config['socialbuttons_facebook']) && ($config['socialbuttons_facebook'] == 1))
 				{
-					if($pageinfo = json_decode(@file_get_contents("https://graph.facebook.com/" . $url), true))
-					{
-						$shares['facebook'] = isset($pageinfo['shares']) ? $pageinfo['shares'] : 0;
-					}
+					$pageinfo = json_decode(@file_get_contents("https://graph.facebook.com/" . $url), true);
+					$shares['facebook'] = isset($pageinfo['shares']) ? $pageinfo['shares'] : 0;
 				}
 				if(isset($config['socialbuttons_twitter']) && ($config['socialbuttons_twitter'] == 1))
 				{
-					if($pageinfo = json_decode(@file_get_contents("https://cdn.api.twitter.com/1/urls/count.json?url=" . $url), true))
-					{
-						$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
-					}
+					$pageinfo = json_decode(@file_get_contents("https://cdn.api.twitter.com/1/urls/count.json?url=" . $url), true);
+					$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 				}
 				if(isset($config['socialbuttons_google']) && ($config['socialbuttons_google'] == 1))
 				{
-					if($data = @file_get_contents("https://plusone.google.com/_/+1/fastbutton?url=" . $url))
-					{
-						preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $data, $matches);
-						$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
-					}
+					$data = @file_get_contents("https://plusone.google.com/_/+1/fastbutton?url=" . $url);
+					preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $data, $matches);
+					$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
 				}
 				if(isset($config['socialbuttons_linkedin']) && ($config['socialbuttons_linkedin'] == 1))
 				{
-					if($pageinfo = json_decode(@file_get_contents('http://www.linkedin.com/countserv/count/share?url=' . $url . '&format=json'), true))
-					{
-						$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
-					}
+					$pageinfo = json_decode(@file_get_contents('http://www.linkedin.com/countserv/count/share?url=' . $url . '&format=json'), true);
+					$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 				}
 			}
-			
-			$json = json_encode($shares);
-			$handle = fopen($cache_file, 'w');
-			fwrite($handle, $json);
-			fclose($handle);
+			// Write the cache
+			if(is_writable(dirname($cache_file)))
+			{
+				$json = json_encode($shares);
+				$handle = fopen($cache_file, 'w');
+				fwrite($handle, $json);
+				fclose($handle);
+			}
+
 		}
+		// Read data from cache
 		else
 		{
 			$json = file_get_contents($cache_file);

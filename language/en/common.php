@@ -43,4 +43,11 @@ $lang = array_merge($lang, array(
 	'ACP_SAVED'					=> 'Social Media Buttons settings updated.',
 	'ACP_STYLE'					=> 'Style',
 	'ACP_STYLE_EXPLAIN'			=> 'Choose a style for the buttons',
+	'CACHE_PATH_NOT_WRITEABLE'	=> 'The cache path "%s" is not writeable!',
+	'ACP_CACHE_PURGE_SUCCESS'	=> 'Deleted all files from cache.',
+	'ACP_SHOWSHARES'			=> 'Display shares',
+	'ACP_SHOWSHARES_EXPLAIN'	=> 'Display the number of shares behind the button',
+	'ACP_PURGE_CACHE'			=> 'Purge Cache',
+	'ACP_PURGE_CACHE_EXPLAIN'	=> 'Delete all files from cache',
+	'RUN_NOW'					=> 'Run Now',
 ));

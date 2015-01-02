@@ -15,7 +15,7 @@ class socialbuttons_module
 
     public function main($id, $mode)
     {
-        global $config, $user, $template, $request;
+        global $config, $user, $template, $request, $phpbb_root_path;
 
 		
 		$user->add_lang_ext('tas2580/socialbuttons', 'common');
@@ -26,6 +26,26 @@ class socialbuttons_module
 
 		add_form_key('acp_socialbuttons');
 
+		// Purge the cache
+		if($request->is_set_post('action_purge_cache'))
+		{
+			if (!check_form_key('acp_socialbuttons'))
+			{
+				trigger_error($user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+			$cache_path = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/';
+			$handle = opendir($cache_path);
+			while (false !== ($file = readdir($handle))) 
+			{
+				if(is_file($cache_path . $file))
+				{
+					unlink($cache_path . $file);
+				}
+				
+			}
+			trigger_error($user->lang('ACP_CACHE_PURGE_SUCCESS') . adm_back_link($this->u_action));	
+		}
+		
 		// Form is submitted
 		if($request->is_set_post('submit'))
 		{
@@ -43,7 +63,8 @@ class socialbuttons_module
 			$config->set('socialbuttons_google', $request->variable('google', 0));
 			$config->set('socialbuttons_linkedin', $request->variable('linkedin', 0));
 			$config->set('socialbuttons_style', $request->variable('style', 1));
-
+			$config->set('socialbuttons_showshares', $request->variable('showshares', 0));
+	
 			trigger_error($user->lang('ACP_SAVED') . adm_back_link($this->u_action));
 		}
 
@@ -52,11 +73,15 @@ class socialbuttons_module
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 0;
 		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : 1;
 		$style = isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1;
+		$cache_path = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/';
         $template->assign_vars(array(
+			'S_CACHE_WRITEABLE'			=> is_writable($cache_path),
+			'CACHEPATH_NOT_WRITEABLE'	=> sprintf($user->lang['CACHE_PATH_NOT_WRITEABLE'], $cache_path),
 			'U_ACTION'					=> $this->u_action,
             'POSITION_OPTIONS'			=> $this->position_select($position),
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
 			'BUTTON_STYLES'				=> $this->button_style($style),
+			'S_SHOWSHARES'				=> isset($config['socialbuttons_showshares']) ? $config['socialbuttons_showshares'] : 0,
 			'CACHETIME'					=> isset($config['socialbuttons_cachetime']) ? $config['socialbuttons_cachetime'] : 0,
 			'S_FACEBOOK'				=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
 			'S_TWITTER'					=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',

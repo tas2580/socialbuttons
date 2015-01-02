@@ -1,6 +1,10 @@
 <!-- INCLUDE overall_header.html -->
 <h1>{L_ACP_SOCIALBUTTONS_TITLE}</h1>
 
+<!-- IF not S_CACHE_WRITEABLE -->
+
+<div class="errorbox">{CACHEPATH_NOT_WRITEABLE}</div>
+<!-- ENDIF -->
 
 <form method="post" action="{U_ACTION}">
 
@@ -15,6 +19,10 @@
 		<dd><input type="number" id="cachetime" name="cachetime" value="{CACHETIME}" /> <select id="multiplicator" name="multiplicator">{MULTIPLICATOR_OPTIONS}</select></dd>
 	</dl>
 	<dl>
+		<dt><label for="action_purge_cache">{L_ACP_PURGE_CACHE}</label><br /><span>{L_ACP_PURGE_CACHE_EXPLAIN}</span></dt>
+		<dd><label><input class="button2" type="submit" id="action_purge_cache" name="action_purge_cache" value="{L_RUN_NOW}" /></dd>
+	</dl>
+	<dl>
 		<dt><label for="style">{L_ACP_STYLE}</label><br /><span>{L_ACP_STYLE_EXPLAIN}</span></dt>
 		<dd>
 			<div style="height:200px;overflow:auto;">
@@ -22,7 +30,13 @@
 			</div>		
 		</dd>
 	</dl>
-
+	<dl>
+		<dt><label for="showshares">{L_ACP_SHOWSHARES}</label><br /><span>{L_ACP_SHOWSHARES_EXPLAIN}</span></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="showshares" name="showshares" value="1"<!-- IF S_SHOWSHARES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="showshares" value="0"<!-- IF not S_SHOWSHARES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
 </fieldset>
 
 <fieldset>
