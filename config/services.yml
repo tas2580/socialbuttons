@@ -4,5 +4,7 @@ services:
         arguments:
             - @config
             - @template
+            - @user
+            - %core.root_path%
         tags:
             - { name: event.listener }

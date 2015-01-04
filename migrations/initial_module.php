@@ -24,6 +24,9 @@ class initial_module extends \phpbb\db\migration\migration
 			array('config.add', array('socialbuttons_google', '1')),
 			array('config.add', array('socialbuttons_linkedin', '1')),
 			array('config.add', array('socialbuttons_showshares', '1')),
+			// Keep track of version in the database
+			array('config.add', array('socialbuttons_version', '0.4.1')),
+			
 			
 			// Add ACP module
 			array('module.add', array(
@@ -39,9 +42,6 @@ class initial_module extends \phpbb\db\migration\migration
 					'modes'				=> array('settings'),
 				),
 			)),
-
-			// Keep track of version in the database
-			array('config.add', array('socialbuttons_version', '0.3.3')),
 		);
 	}
 }
