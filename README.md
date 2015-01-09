@@ -1,4 +1,4 @@
-phpBB Social Media Buttons
+phpBB 3.1 - Social Media Buttons
 ==========================
 This is an extension for the phpBB forums software. You need an instalation of phpBB 3.1.x to use this.
 
