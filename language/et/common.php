@@ -18,7 +18,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-    'SOCIAL_BUTTONS'			=> 'Jaga seda sotsiaalmeedias',
+    'SOCIAL_BUTTONS'			=> 'Sotsiaalmeedia',
 	'SHARE_FACEBOOK'			=> 'Jaga Facebookis',
 	'SHARE_TWITTER'				=> 'Jaga Twitteris',
 	'SHARE_GOOGLEPLUS'			=> 'Jaga Google+\'is',
