@@ -24,6 +24,10 @@ class initial_module extends \phpbb\db\migration\migration
 			array('config.add', array('socialbuttons_google', '1')),
 			array('config.add', array('socialbuttons_linkedin', '1')),
 			array('config.add', array('socialbuttons_showshares', '1')),
+			array('config.add', array('socialbuttons_enable_og', '1')),
+			array('config.add', array('socialbuttons_og_image', '')),
+			array('config.add', array('socialbuttons_enable_og_title', '1')),
+			array('config.add', array('socialbuttons_enable_og_desc', '1')),
 			// Keep track of version in the database
 			array('config.add', array('socialbuttons_version', '0.4.1')),
 			

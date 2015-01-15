@@ -64,7 +64,11 @@ class socialbuttons_module
 			$config->set('socialbuttons_linkedin', $request->variable('linkedin', 0));
 			$config->set('socialbuttons_style', $request->variable('style', 1));
 			$config->set('socialbuttons_showshares', $request->variable('showshares', 0));
-	
+			$config->set('socialbuttons_enable_og', $request->variable('enable_og', 0));
+			$config->set('socialbuttons_enable_og_title', $request->variable('enable_og_title', 0));
+			$config->set('socialbuttons_enable_og_desc', $request->variable('enable_og_desc', 0));
+			$config->set('socialbuttons_og_image', $request->variable('og_image', ''));
+			
 			trigger_error($user->lang('ACP_SAVED') . adm_back_link($this->u_action));
 		}
 
@@ -87,7 +91,12 @@ class socialbuttons_module
 			'S_TWITTER'					=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
 			'S_GOOGLE'					=> isset($config['socialbuttons_google']) ? $config['socialbuttons_google'] : '',
 			'S_LINKEDIN'				=> isset($config['socialbuttons_linkedin']) ? $config['socialbuttons_linkedin'] : '',
-        ));
+			'S_ENABLE_OG'				=> isset($config['socialbuttons_enable_og']) ? $config['socialbuttons_enable_og'] : '',
+			'S_ENABLE_OG_TITLE'			=> isset($config['socialbuttons_enable_og_title']) ? $config['socialbuttons_enable_og_title'] : '',
+			'S_ENABLE_OG_DESC'			=> isset($config['socialbuttons_enable_og_desc']) ? $config['socialbuttons_enable_og_desc'] : '',
+			'OG_IMAGE'					=> isset($config['socialbuttons_og_image']) ? $config['socialbuttons_og_image'] : '',
+
+		));
     }
 
 	private function button_style($selected)

@@ -35,15 +35,18 @@ class listener implements EventSubscriberInterface
 	* @param \phpbb\config\config			$config				Config Object
 	* @param \phpbb\template\template       $template           Template object
 	* @param \phpbb\user                    $user               User object
+	* @param \phpbb\request\request			$request			Request object
 	* @param string                         $phpbb_root_path    phpbb_root_path
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user,  \phpbb\request\request $request, $phpbb_root_path)
 	{
 		$this->config = $config;
 		$this->template = $template;
 		$this->user = $user;
+		$this->request = $request;
 		$this->phpbb_root_path = $phpbb_root_path;
+		$this->description = '';
 	}
 
 	/**
@@ -57,9 +60,25 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.viewtopic_modify_page_title'		=> 'display_socialbuttons',
+			'core.viewtopic_post_row_after'			=> 'display_og_description'
 		);
 	}
 
+	function display_og_description($event)
+	{
+
+		
+		if(isset($this->config['socialbuttons_enable_og_desc']) && $this->config['socialbuttons_enable_og_desc'] && empty($this->description))
+		{
+			$this->description = strip_tags($event['post_row']['MESSAGE']);
+			$this->template->assign_vars(array(
+				'OG_DESCRIPTION'	=> $this->description,
+			));
+		}
+		
+		
+	}
+	
 	/**
 	* Load Social Media Buttons
 	*
@@ -69,9 +88,14 @@ class listener implements EventSubscriberInterface
 	*/
 	public function display_socialbuttons($event)
 	{
-		// Generate the full URL oft the topic without session ID
-		$url = urlencode(generate_board_url() . '/' . $this->user->page['page']);
+		// we can not use $this->user->page['page'] because it fails on use of SEO extensions
+		$page = $this->request->server('REQUEST_URI');
+		$host = $this->request->server('HTTP_HOST');
+		$https = $this->request->server('HTTPS');
 		
+		// Generate the full URL oft the topic without session ID
+		$url = urlencode(($https ? 'https://' : 'http://') . $host . '/' . $page);
+
 		// Display the shares count
 		if(isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
 		{
@@ -84,6 +108,7 @@ class listener implements EventSubscriberInterface
 				'SHARES_LINKEDIN'		=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
 			));	
 		}
+
 		
 		// Display the buttons
 		$position = isset($this->config['socialbuttons_position']) ? $this->config['socialbuttons_position'] : 2;
@@ -97,6 +122,11 @@ class listener implements EventSubscriberInterface
 			'S_LINKEDIN'			=> isset($this->config['socialbuttons_linkedin']) ? $this->config['socialbuttons_linkedin'] : '',
 			'S_SHOW_AT_TOP'			=> ($position == 0 || $position == 1) ? true : false,
 			'S_SHOW_AT_BOTTOM'		=> ($position == 0 || $position == 2) ? true : false,
+			'ENABLE_OG'				=> isset($this->config['socialbuttons_enable_og']) ? $this->config['socialbuttons_enable_og'] : '',
+			'OG_IMAGE'				=> isset($this->config['socialbuttons_og_image']) ? $this->config['socialbuttons_og_image'] : '',
+			'ENABLE_OG_TITLE'		=> isset($this->config['socialbuttons_enable_og_title']) ? $this->config['socialbuttons_enable_og_title'] : '',
+			'OG_TITLE'				=> $event['page_title'],
+			'ENABLE_OG_DESC'		=> isset($this->config['socialbuttons_enable_og_desc']) ? $this->config['socialbuttons_enable_og_desc'] : '',
 		));
 		$this->user->add_lang_ext('tas2580/socialbuttons', 'common');
 	}

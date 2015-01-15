@@ -40,6 +40,38 @@
 </fieldset>
 
 <fieldset>
+	<legend>{L_ACP_OG_TAGS}</legend>
+	<dl>
+		<dt><label for="enable_og">{L_ACP_ENABLE_OG_TAGS}</label><br /><span>{L_ACP_OG_EXPLAIN}</span></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="enable_og" name="enable_og" value="1"<!-- IF S_ENABLE_OG --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="enable_og" value="0"<!-- IF not S_ENABLE_OG --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="og_image">{L_ACP_OG_IMAGE}</label><br /><span>{L_ACP_OG_IMAGE_EXPLAIN}</span></dt>
+		<dd>
+			<input type="text" name="og_image" id="og_image" value="{OG_IMAGE}" />
+		</dd>
+	</dl>	
+	<dl>
+		<dt><label for="enable_og_title">{L_ACP_ENABLE_OG_TITLE}</label><br /><span>{L_ACP_OG_TITLE_EXPLAIN}</span></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="enable_og_title" name="enable_og_title" value="1"<!-- IF S_ENABLE_OG_TITLE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="enable_og_title" value="0"<!-- IF not S_ENABLE_OG_TITLE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="enable_og_desc">{L_ACP_ENABLE_OG_DESC}</label><br /><span>{L_ACP_OG_DESC_EXPLAIN}</span></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="enable_og_desc" name="enable_og_desc" value="1"<!-- IF S_ENABLE_OG_DESC --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="enable_og_desc" value="0"<!-- IF not S_ENABLE_OG_DESC --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
+	</dl>
+</fieldset>
+	
+	
+<fieldset>
 	<legend>{L_ACP_SET_PLATFORMS}</legend>
 	<dl>
 		<dt><label for="facebook">{L_ACP_FACEBOOK}</label></dt>

@@ -50,4 +50,13 @@ $lang = array_merge($lang, array(
 	'ACP_PURGE_CACHE'			=> 'Purge Cache',
 	'ACP_PURGE_CACHE_EXPLAIN'	=> 'Delete all files from cache',
 	'RUN_NOW'					=> 'Run Now',
+	'ACP_OG_TAGS'				=> 'OG Meta-Tags',
+	'ACP_ENABLE_OG_TAGS'		=> 'Activate OG Meta-Tags',
+	'ACP_OG_EXPLAIN'			=> 'Activates <em>Open Graph</em> Meta-Tags to give the Social Media platforms inormations about the page to share',
+	'ACP_OG_IMAGE'				=> 'Image',
+	'ACP_OG_IMAGE_EXPLAIN'		=> 'Enter the URL to an image that you whant to use in the share.',
+	'ACP_ENABLE_OG_TITLE'		=> 'Title',
+	'ACP_OG_TITLE_EXPLAIN'		=> 'If activated the topic title is used as og:title',
+	'ACP_ENABLE_OG_DESC'		=> 'Description',
+	'ACP_OG_DESC_EXPLAIN'		=> 'If activated the first post will be used as og:description.<br /><span style="color:#f00;">Attention! If activated the first post can be seen by everyone even if the forum is private.</span> This prevents that the platforms use the login text as description.',
 ));

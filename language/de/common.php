@@ -50,4 +50,13 @@ $lang = array_merge($lang, array(
 	'ACP_PURGE_CACHE'			=> 'Cache löschen',
 	'ACP_PURGE_CACHE_EXPLAIN'	=> 'Löscht alle Dateien aus dem Cache',
 	'RUN_NOW'					=> 'Ausführen',
+	'ACP_OG_TAGS'				=> 'OG Meta-Tags',
+	'ACP_ENABLE_OG_TAGS'		=> 'OG Meta-Tags aktivieren',
+	'ACP_OG_EXPLAIN'			=> 'Aktiviert <em>Open Graph</em> Meta-Tags um den Social Media Plattformen das auslesen von Informationen zu erleichtern',
+	'ACP_OG_IMAGE'				=> 'Bild',
+	'ACP_OG_IMAGE_EXPLAIN'		=> 'Gib die URL zu einem Bild an das in dem geteilten Beitrag angezeigt wird.',
+	'ACP_ENABLE_OG_TITLE'		=> 'Titel',
+	'ACP_OG_TITLE_EXPLAIN'		=> 'Wenn aktiviert wird der Themen Titel als OG-Tag verwendet',
+	'ACP_ENABLE_OG_DESC'		=> 'Beschreibung',
+	'ACP_OG_DESC_EXPLAIN'		=> 'Wenn aktiviert wird der erste Beitrag als Beschreibung übergeben.<br /><span style="color:#f00;">Achtung! Der erste Beitrag ist somit auch bei privaten Foren für jeden sichtbar.</span> So kann umgangen werden das die Plattformen den Login Text verwenden.',
 ));
