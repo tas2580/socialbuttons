@@ -25,6 +25,9 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\user\user */
 	protected $user;
 	
+	/* @var \phpbb\request\request */
+	protected $request;
+	
 	/** @var string phpbb_root_path */
 	protected $phpbb_root_path;
 	
@@ -33,10 +36,10 @@ class listener implements EventSubscriberInterface
 	* Constructor
 	*
 	* @param \phpbb\config\config			$config				Config Object
-	* @param \phpbb\template\template       $template           Template object
-	* @param \phpbb\user                    $user               User object
+	* @param \phpbb\template\template		$template			Template object
+	* @param \phpbb\user					$user				User object
 	* @param \phpbb\request\request			$request			Request object
-	* @param string                         $phpbb_root_path    phpbb_root_path
+	* @param string							$phpbb_root_path	phpbb_root_path
 	* @access public
 	*/
 	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user,  \phpbb\request\request $request, $phpbb_root_path)
@@ -59,24 +62,29 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.viewtopic_modify_page_title'		=> 'display_socialbuttons',
-			'core.viewtopic_post_row_after'			=> 'display_og_description'
+			'core.viewtopic_post_row_after'			=> 'display_og_description',
+			'core.viewtopic_modify_page_title'		=> 'display_socialbuttons'
 		);
 	}
 
+	/**
+	* Display the first post as Open Graph description
+	*
+	* @param	object	$event	The event object
+	* @return	null
+	* @access	public
+	*/
 	function display_og_description($event)
 	{
-
-		
 		if(isset($this->config['socialbuttons_enable_og_desc']) && $this->config['socialbuttons_enable_og_desc'] && empty($this->description))
 		{
-			$this->description = strip_tags($event['post_row']['MESSAGE']);
+			$desctiption = strip_tags($event['post_row']['MESSAGE']);
+			//Facebook only displays the first 300 characters of a description, so we can cut the post text after 300 characters
+			$this->description = (strlen($desctiption) > 300) ? preg_replace("/[^ ]*$/", '', substr($desctiption, 0, 300)) .  '...' : $desctiption;
 			$this->template->assign_vars(array(
 				'OG_DESCRIPTION'	=> $this->description,
 			));
 		}
-		
-		
 	}
 	
 	/**
@@ -93,7 +101,7 @@ class listener implements EventSubscriberInterface
 		$host = $this->request->server('HTTP_HOST');
 		$https = $this->request->server('HTTPS');
 		
-		// Generate the full URL oft the topic without session ID
+		// Generate the full URL of the topic without session ID
 		$url = urlencode(($https ? 'https://' : 'http://') . $host . '/' . $page);
 
 		// Display the shares count
@@ -109,8 +117,7 @@ class listener implements EventSubscriberInterface
 			));	
 		}
 
-		
-		// Display the buttons
+		// Display the buttons and the OG meta tags
 		$position = isset($this->config['socialbuttons_position']) ? $this->config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
 			'TOPIC_TITLE'			=> $event['topic_data']['topic_title'],
