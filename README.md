@@ -28,6 +28,10 @@ You can get support for this extension on <a href="https://www.phpbb.com/communi
 or in german on <a href="https://www.phpbb.de/community/viewtopic.php?f=149&t=232974">phpbb.de</a>. For more informations look at
 <a href="https://tas2580.net/downloads/download-7.html">my Website</a>.
 
+Help to translate
+-----------------
+If you use the extension in your forum and translated it therefor in your language, it would be nice if you would send me a <a href="https://help.github.com/articles/using-pull-requests/">pull request</a>. Also it may be that existing translations after uptates of the extensions are incomplete. So you can help me if you complete or correct existing language files.
+
 LICENSE
 -------
 <a href="http://opensource.org/licenses/gpl-2.0.php">GNU General Public License v2</a>
