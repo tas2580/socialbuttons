@@ -2,7 +2,6 @@
 <h1>{L_ACP_SOCIALBUTTONS_TITLE}</h1>
 
 <!-- IF not S_CACHE_WRITEABLE -->
-
 <div class="errorbox">{CACHEPATH_NOT_WRITEABLE}</div>
 <!-- ENDIF -->
 
@@ -13,6 +12,18 @@
 	<dl>
 		<dt><label for="position">{L_ACP_POSITION}</label><br /><span>{L_ACP_POSITION_EXPLAIN}</span></dt>
 		<dd><select id="position" name="position">{POSITION_OPTIONS}</select></dd>
+	</dl>
+	<dl>
+		<dt><label for="forum">{L_ACP_ENABLE_FORUMS}</label><br /><span>{L_ACP_ENABLE_FORUMS_EXPLAIN}</span></dt>
+		<dd><select id="forum" name="enable_f[]" multiple="multiple" size="10">{FORUM_ENABLE_SELECT}</select></dd>
+		<dd><label><input type="checkbox" class="radio" name="enable" value="1"<!-- IF S_ENABLE --> checked="checked"<!-- ENDIF--> /> {L_ALL_FORUMS}</label></dd>
+	</dl>
+	<dl>
+		<dt><label for="showshares">{L_ACP_SHOWSHARES}</label><br /><span>{L_ACP_SHOWSHARES_EXPLAIN}</span></dt>
+		<dd>
+			<label><input type="radio" class="radio" id="showshares" name="showshares" value="1"<!-- IF S_SHOWSHARES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="showshares" value="0"<!-- IF not S_SHOWSHARES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+		</dd>
 	</dl>
 	<dl>
 		<dt><label for="cachetime">{L_ACP_CACHETIME}</label><br /><span>{L_ACP_CACHETIME_EXPLAIN}</span></dt>
@@ -31,10 +42,10 @@
 		</dd>
 	</dl>
 	<dl>
-		<dt><label for="showshares">{L_ACP_SHOWSHARES}</label><br /><span>{L_ACP_SHOWSHARES_EXPLAIN}</span></dt>
+		<dt><label for="use_seo_urls">{L_ACP_USE_SEO_URLS}</label><br /><span>{L_ACP_USE_SEO_URLS_EXPLAIN}</span></dt>
 		<dd>
-			<label><input type="radio" class="radio" id="showshares" name="showshares" value="1"<!-- IF S_SHOWSHARES --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-			<label><input type="radio" class="radio" name="showshares" value="0"<!-- IF not S_SHOWSHARES --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+			<label><input type="radio" class="radio" id="use_seo_urls" name="use_seo_urls" value="1"<!-- IF S_USE_SEO_URLS --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+			<label><input type="radio" class="radio" name="use_seo_urls" value="0"<!-- IF not S_USE_SEO_URLS --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 		</dd>
 	</dl>
 </fieldset>
@@ -62,11 +73,9 @@
 		</dd>
 	</dl>
 	<dl>
-		<dt><label for="enable_og_desc">{L_ACP_ENABLE_OG_DESC}</label><br /><span>{L_ACP_OG_DESC_EXPLAIN}</span></dt>
-		<dd>
-			<label><input type="radio" class="radio" id="enable_og_desc" name="enable_og_desc" value="1"<!-- IF S_ENABLE_OG_DESC --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-			<label><input type="radio" class="radio" name="enable_og_desc" value="0"<!-- IF not S_ENABLE_OG_DESC --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
-		</dd>
+		<dt><label for="forum">{L_ACP_ENABLE_OG_DESC}</label><br /><span>{L_ACP_OG_DESC_EXPLAIN}</span></dt>
+		<dd><select id="forum" name="enable_og_desc_f[]" multiple="multiple" size="10">{FORUM_DESC_SELECT}</select></dd>
+		<dd><label><input type="checkbox" class="radio" name="enable_og_desc" value="1"<!-- IF S_ENABLE_OG_DESC --> checked="checked"<!-- ENDIF--> /> {L_ALL_FORUMS}</label></dd>
 	</dl>
 </fieldset>
 	

@@ -76,7 +76,7 @@ class listener implements EventSubscriberInterface
 	*/
 	function display_og_description($event)
 	{
-		if(isset($this->config['socialbuttons_enable_og_desc']) && $this->config['socialbuttons_enable_og_desc'] && empty($this->description))
+		if(empty($this->description))
 		{
 			$desctiption = strip_tags($event['post_row']['MESSAGE']);
 			//Facebook only displays the first 300 characters of a description, so we can cut the post text after 300 characters
@@ -96,16 +96,20 @@ class listener implements EventSubscriberInterface
 	*/
 	public function display_socialbuttons($event)
 	{
+		$enabled_forums = isset($this->config['socialbuttons_enable_forums']) ? explode(',', $this->config['socialbuttons_enable_forums']) : array();
+		$enable_buttons = ((isset($this->config['socialbuttons_enable']) && $this->config['socialbuttons_enable']) || in_array($event['topic_data']['forum_id'], $enabled_forums));
+		
 		// we can not use $this->user->page['page'] because it fails on use of SEO extensions
-		$page = $this->request->server('REQUEST_URI');
+		$page = str_replace('&amp;', '&', $this->request->server('REQUEST_URI'));
 		$host = $this->request->server('HTTP_HOST');
 		$https = $this->request->server('HTTPS');
 		
 		// Generate the full URL of the topic without session ID
-		$url = urlencode(($https ? 'https://' : 'http://') . $host . '/' . $page);
+		$use_seo_urls = isset($this->config['socialbuttons_use_seo_urls']) ? $this->config['socialbuttons_use_seo_urls'] : 0;
+		$url = ($use_seo_urls == 1) ? ($https ? 'https://' : 'http://') . $host . '/' . $page : generate_board_url() . '/viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id'];
 
 		// Display the shares count
-		if(isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
+		if($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
 		{
 			$shares = $this->get_share_count($url);
 			$this->template->assign_vars(array(
@@ -118,22 +122,24 @@ class listener implements EventSubscriberInterface
 		}
 
 		// Display the buttons and the OG meta tags
+		$forums = isset($this->config['socialbuttons_enable_og_desc_forums']) ? explode(',', $this->config['socialbuttons_enable_og_desc_forums']) : array();
 		$position = isset($this->config['socialbuttons_position']) ? $this->config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
-			'TOPIC_TITLE'			=> $event['topic_data']['topic_title'],
-			'U_TOPICLINK'			=> $url,
 			'SOCIAL_MEDIA_CLASS'	=> 'socialmediabuttons' . (isset($this->config['socialbuttons_style']) ? $this->config['socialbuttons_style'] : 1),
+			'S_ENABLE_BUTTONS'		=> $enable_buttons,
 			'S_FACEBOOK'			=> isset($this->config['socialbuttons_facebook']) ? $this->config['socialbuttons_facebook'] : '',
 			'S_TWITTER'				=> isset($this->config['socialbuttons_twitter']) ? $this->config['socialbuttons_twitter'] : '',
 			'S_GOOGLE'				=> isset($this->config['socialbuttons_google']) ? $this->config['socialbuttons_google'] : '',
 			'S_LINKEDIN'			=> isset($this->config['socialbuttons_linkedin']) ? $this->config['socialbuttons_linkedin'] : '',
 			'S_SHOW_AT_TOP'			=> ($position == 0 || $position == 1) ? true : false,
 			'S_SHOW_AT_BOTTOM'		=> ($position == 0 || $position == 2) ? true : false,
+			'U_TOPICLINK'			=> urlencode($url),
+			'OG_URL'				=> $url,			
 			'ENABLE_OG'				=> isset($this->config['socialbuttons_enable_og']) ? $this->config['socialbuttons_enable_og'] : '',
 			'OG_IMAGE'				=> isset($this->config['socialbuttons_og_image']) ? $this->config['socialbuttons_og_image'] : '',
 			'ENABLE_OG_TITLE'		=> isset($this->config['socialbuttons_enable_og_title']) ? $this->config['socialbuttons_enable_og_title'] : '',
 			'OG_TITLE'				=> $event['page_title'],
-			'ENABLE_OG_DESC'		=> isset($this->config['socialbuttons_enable_og_desc']) ? $this->config['socialbuttons_enable_og_desc'] : '',
+			'ENABLE_OG_DESC'		=> ((isset($this->config['socialbuttons_enable_og_desc']) && $this->config['socialbuttons_enable_og_desc']) || in_array($event['topic_data']['forum_id'], $forums)),
 		));
 		$this->user->add_lang_ext('tas2580/socialbuttons', 'common');
 	}

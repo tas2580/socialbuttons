@@ -1,11 +1,13 @@
+<!-- IF S_ENABLE_BUTTONS -->
 <!-- INCLUDECSS @tas2580_socialbuttons/style.css -->
 <script>
 function open_socialmedia(url){window.open(url,'','width=500, height=600');return false;}
 </script>
 <!-- IF ENABLE_OG -->
+<meta property="og:url" content="{OG_URL}" />
 <!-- IF OG_IMAGE --><meta property="og:image" content="{OG_IMAGE}" /><!-- ENDIF -->
+<meta property="og:site_name" content="{SITENAME}" />
 <!-- IF ENABLE_OG_TITLE --><meta property="og:title" content="{OG_TITLE}" /><!-- ENDIF -->
 <!-- IF ENABLE_OG_DESC --><meta property="og:description" content="{OG_DESCRIPTION}" /><!-- ENDIF -->
-
-
+<!-- ENDIF -->
 <!-- ENDIF -->

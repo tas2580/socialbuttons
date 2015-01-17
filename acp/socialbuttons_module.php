@@ -17,10 +17,7 @@ class socialbuttons_module
     {
         global $config, $user, $template, $request, $phpbb_root_path;
 
-		
-		$user->add_lang_ext('tas2580/socialbuttons', 'common');
-		
-		
+		$user->add_lang_ext('tas2580/socialbuttons', 'common');		
         $this->tpl_name = 'acp_socialbuttons_body';
         $this->page_title = $user->lang('ACP_SOCIALBUTTONS_TITLE');
 
@@ -41,7 +38,6 @@ class socialbuttons_module
 				{
 					unlink($cache_path . $file);
 				}
-				
 			}
 			trigger_error($user->lang('ACP_CACHE_PURGE_SUCCESS') . adm_back_link($this->u_action));	
 		}
@@ -53,9 +49,12 @@ class socialbuttons_module
 			{
 				trigger_error($user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
-	
+			$forums = implode(',', $request->variable('enable_f', array(0)));
+			$desc_forums = implode(',', $request->variable('enable_og_desc_f', array(0)));
 			// Set the new settings to config
 			$config->set('socialbuttons_position', $request->variable('position', 0));
+			$config->set('socialbuttons_enable_forums', $forums);
+			$config->set('socialbuttons_enable', $request->variable('enable', 0));
 			$config->set('socialbuttons_cachetime', $request->variable('cachetime', 0));
 			$config->set('socialbuttons_multiplicator', $request->variable('multiplicator', 1));
 			$config->set('socialbuttons_facebook', $request->variable('facebook', 0));
@@ -64,27 +63,32 @@ class socialbuttons_module
 			$config->set('socialbuttons_linkedin', $request->variable('linkedin', 0));
 			$config->set('socialbuttons_style', $request->variable('style', 1));
 			$config->set('socialbuttons_showshares', $request->variable('showshares', 0));
+			$config->set('socialbuttons_use_seo_urls', $request->variable('use_seo_urls', ''));
 			$config->set('socialbuttons_enable_og', $request->variable('enable_og', 0));
 			$config->set('socialbuttons_enable_og_title', $request->variable('enable_og_title', 0));
 			$config->set('socialbuttons_enable_og_desc', $request->variable('enable_og_desc', 0));
 			$config->set('socialbuttons_og_image', $request->variable('og_image', ''));
-			
+			$config->set('socialbuttons_enable_og_desc_forums', $desc_forums);
 			trigger_error($user->lang('ACP_SAVED') . adm_back_link($this->u_action));
 		}
-
 
         // Send the curent settings to template
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 0;
 		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : 1;
 		$style = isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1;
 		$cache_path = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/';
-        $template->assign_vars(array(
+		$desc_forums = isset($config['socialbuttons_enable_og_desc_forums']) ? explode(',', $config['socialbuttons_enable_og_desc_forums']) : array();
+		$forums = isset($config['socialbuttons_enable_forums']) ? explode(',', $config['socialbuttons_enable_forums']) : array();
+
+		$template->assign_vars(array(
 			'S_CACHE_WRITEABLE'			=> is_writable($cache_path),
 			'CACHEPATH_NOT_WRITEABLE'	=> sprintf($user->lang['CACHE_PATH_NOT_WRITEABLE'], $cache_path),
 			'U_ACTION'					=> $this->u_action,
             'POSITION_OPTIONS'			=> $this->position_select($position),
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
 			'BUTTON_STYLES'				=> $this->button_style($style),
+			'S_ENABLE'					=> isset($config['socialbuttons_enable']) ? $config['socialbuttons_enable'] : 0,
+			'S_USE_SEO_URLS'			=> isset($config['socialbuttons_use_seo_urls']) ? $config['socialbuttons_use_seo_urls'] : 0,
 			'S_SHOWSHARES'				=> isset($config['socialbuttons_showshares']) ? $config['socialbuttons_showshares'] : 0,
 			'CACHETIME'					=> isset($config['socialbuttons_cachetime']) ? $config['socialbuttons_cachetime'] : 0,
 			'S_FACEBOOK'				=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
@@ -95,10 +99,18 @@ class socialbuttons_module
 			'S_ENABLE_OG_TITLE'			=> isset($config['socialbuttons_enable_og_title']) ? $config['socialbuttons_enable_og_title'] : '',
 			'S_ENABLE_OG_DESC'			=> isset($config['socialbuttons_enable_og_desc']) ? $config['socialbuttons_enable_og_desc'] : '',
 			'OG_IMAGE'					=> isset($config['socialbuttons_og_image']) ? $config['socialbuttons_og_image'] : '',
-
+			'FORUM_DESC_SELECT'			=> make_forum_select($desc_forums, false, false, true),
+			'FORUM_ENABLE_SELECT'		=> make_forum_select($forums, false, false, true),
 		));
     }
 
+	/**
+	 * Generates a list of styles for the buttons
+	 * 
+	 * @global	object	$phpbb_extension_manager
+	 * @param	int		$selected
+	 * @return	string	
+	 */
 	private function button_style($selected)
 	{
 		global  $phpbb_extension_manager;
@@ -110,10 +122,15 @@ class socialbuttons_module
 			$return .= '<input type="radio"' . $checked . ' class="radio" id="style" name="style" value="' . $i . '" /> <img align="top" src="' . $path . 'sprite' . $i . '.png" alt="style' . $i . '" /><br /><br />';
 		}
 		return $return;
-
 	}
 
-
+	/**
+	 * Generates a option list with positions for the buttons
+	 * 
+	 * @global	object	$user
+	 * @param	int		$selected
+	 * @return string
+	 */
 	private function position_select($selected)
 	{
 		global $user;
@@ -123,6 +140,13 @@ class socialbuttons_module
 		return $return;
 	}
 
+	/**
+	 * Generates a option list for the cache tine multiplicator
+	 * 
+	 * @global	object	$user
+	 * @param	int		$selected
+	 * @return string
+	 */
 	private function multiplicator_select($selected)
 	{
 		global $user;
