@@ -19,7 +19,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-    'SOCIAL_BUTTONS'			=> 'Média social',
+    'SOCIAL_BUTTONS'			=> 'Réseau social',
 	'SHARE_FACEBOOK'			=> 'Partager sur Facebook',
 	'SHARE_TWITTER'				=> 'Partager sur Twitter',
 	'SHARE_GOOGLEPLUS'			=> 'Partager sur Google+',
@@ -41,7 +41,7 @@ $lang = array_merge($lang, array(
 	'ACP_TWITTER'				=> 'Twitter',
 	'ACP_GOOGLE'				=> 'Google Plus',
 	'ACP_LINKEDIN'				=> 'Linkedin',
-	'ACP_SAVED'					=> 'Les paramètres des boutons des médias sociaux ont été mis à jour.',
+	'ACP_SAVED'					=> 'Les paramètres des boutons des réseaux sociaux ont été mis à jour.',
 	'ACP_STYLE'					=> 'Style',
 	'ACP_STYLE_EXPLAIN'			=> 'Choisir un style pour les boutons',
 	'CACHE_PATH_NOT_WRITEABLE'	=> 'Impossible d’écrire dans le chemin du cache : "%s" !',
@@ -53,7 +53,7 @@ $lang = array_merge($lang, array(
 	'RUN_NOW'					=> 'Exécuter maintenant',
 	'ACP_OG_TAGS'				=> 'Meta-Tags OG',
 	'ACP_ENABLE_OG_TAGS'		=> 'Activer les Meta-Tags OG',
-	'ACP_OG_EXPLAIN'			=> 'Les Meta-Tags <a href="http://ogp.me/">Open Graph</a> activés fournissent aux plateformes des médias sociaux des informations à propos de la page à partager.',
+	'ACP_OG_EXPLAIN'			=> 'Les Meta-Tags <a href="http://ogp.me/">Open Graph</a> activés fournissent aux plateformes des réseaux sociaux des informations à propos de la page à partager.',
 	'ACP_OG_IMAGE'				=> 'Image',
 	'ACP_OG_IMAGE_EXPLAIN'		=> 'Saisir l’adresse URL d’une image que vous souhaitez utiliser pour un partage.',
 	'ACP_ENABLE_OG_TITLE'		=> 'Titre',
