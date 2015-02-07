@@ -34,5 +34,5 @@ if (empty($lang) || !is_array($lang))
 // ’ » “ ” …
 //
 $lang = array_merge($lang, array(
-	'ACP_SOCIALBUTTONS_TITLE'	=> 'Boutons des médias sociaux',
+	'ACP_SOCIALBUTTONS_TITLE'	=> 'Boutons des réseaux sociaux',
 ));
