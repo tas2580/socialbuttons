@@ -63,4 +63,6 @@ $lang = array_merge($lang, array(
 	'ACP_USE_SEO_URLS_EXPLAIN'	=> 'Activate this option if a URL rewriting extension is used.',
 	'ACP_ENABLE_FORUMS'			=> 'Activate buttons',
 	'ACP_ENABLE_FORUMS_EXPLAIN'	=> 'Select the forums where the buttons should be displayed.',
+	'ACP_DISPLAY_ON_INDEX'	=> 'Display on index',
+	'ACP_DISPLAY_ON_INDEX_EXPLAIN'	=> 'If activated the social media buttons will be displayed on the index page above the “Who is online ?”.',
 ));
