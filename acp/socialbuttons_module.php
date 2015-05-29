@@ -54,6 +54,7 @@ class socialbuttons_module
 			// Set the new settings to config
 			$config->set('socialbuttons_position', $request->variable('position', 0));
 			$config->set('socialbuttons_enable_forums', $forums);
+			$config->set('socialbuttons_display_on_index', $request->variable('display_on_index', 0));
 			$config->set('socialbuttons_enable', $request->variable('enable', 0));
 			$config->set('socialbuttons_cachetime', $request->variable('cachetime', 0));
 			$config->set('socialbuttons_multiplicator', $request->variable('multiplicator', 1));
@@ -88,6 +89,7 @@ class socialbuttons_module
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
 			'BUTTON_STYLES'				=> $this->button_style($style),
 			'S_ENABLE'					=> isset($config['socialbuttons_enable']) ? $config['socialbuttons_enable'] : 0,
+			'S_DISPLAY_ON_INDEX'		=> isset($config['socialbuttons_display_on_index']) ? $config['socialbuttons_display_on_index'] : 0,
 			'S_USE_SEO_URLS'			=> isset($config['socialbuttons_use_seo_urls']) ? $config['socialbuttons_use_seo_urls'] : 0,
 			'S_SHOWSHARES'				=> isset($config['socialbuttons_showshares']) ? $config['socialbuttons_showshares'] : 0,
 			'CACHETIME'					=> isset($config['socialbuttons_cachetime']) ? $config['socialbuttons_cachetime'] : 0,

@@ -19,8 +19,8 @@ You can choose between 10 different styles for the buttons.
 INSTALATION
 ----------
 To install this extension download it from here and upload the files in your forum under <b>/ext/tas2580/socialbuttons</b>.
-After that go to the Admin panel of your forum and navigate in to Customise -> Extension Management -> Extensions. Search this extension in the list of extensions and click on Enable.
-After uploading make sure that <code>ext/tas2580/socialbuttons/cache/</code> is writable.
+After that go to the Admin panel of your forum and navigate in to Customise -> Extension Management -> Extensions. Search
+this extension in the list of extensions and click on Enable.
 
 SUPPORT
 -------

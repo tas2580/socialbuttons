@@ -4,7 +4,7 @@
 * @package phpBB Extension - tas2580 Social Media Buttons
 * @copyright (c) 2014 tas2580 (https://tas2580.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
+* 
 */
 
 namespace tas2580\socialbuttons\event;
@@ -63,10 +63,11 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.viewtopic_post_row_after'			=> 'display_og_description',
-			'core.viewtopic_modify_page_title'		=> 'display_socialbuttons'
+			'core.viewtopic_modify_page_title'		=> 'display_on_viewtopic',
+			'core.index_modify_page_title'			=> 'display_on_index'
 		);
 	}
-
+	
 	/**
 	* Display the first post as Open Graph description
 	*
@@ -88,26 +89,79 @@ class listener implements EventSubscriberInterface
 	}
 	
 	/**
-	* Load Social Media Buttons
+	* Display Social Media Buttons at the index page
 	*
 	* @param	object	$event	The event object
 	* @return	null
 	* @access	public
 	*/
-	public function display_socialbuttons($event)
+	function display_on_index($event)
+	{
+		$url = generate_board_url();
+		$enable_buttons = isset($this->config['socialbuttons_display_on_index']) ? $this->config['socialbuttons_display_on_index'] : 0;
+		// Display the shares count
+		if($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
+		{
+			$shares = $this->get_share_count($url);
+			$this->template->assign_vars(array(
+				'S_SHOWSHARES'			=> true,
+				'SHARES_FACEBOOK'		=> isset($shares['facebook']) ? (int) $shares['facebook'] : 0,
+				'SHARES_TWITTER'		=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
+				'SHARES_GOOGLE'			=> isset($shares['google']) ? (int) $shares['google'] : 0,
+				'SHARES_LINKEDIN'		=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
+			));	
+		}
+
+		// Display the buttons and the OG meta tags
+		$this->template->assign_vars(array(
+			'SOCIAL_MEDIA_CLASS'	=> 'socialmediabuttons' . (isset($this->config['socialbuttons_style']) ? $this->config['socialbuttons_style'] : 1),
+			'S_ENABLE_BUTTONS'		=> $enable_buttons,
+			'U_SHARELINK'			=> urlencode($url),
+			'S_FACEBOOK'			=> isset($this->config['socialbuttons_facebook']) ? $this->config['socialbuttons_facebook'] : '',
+			'S_TWITTER'				=> isset($this->config['socialbuttons_twitter']) ? $this->config['socialbuttons_twitter'] : '',
+			'S_GOOGLE'				=> isset($this->config['socialbuttons_google']) ? $this->config['socialbuttons_google'] : '',
+			'S_LINKEDIN'			=> isset($this->config['socialbuttons_linkedin']) ? $this->config['socialbuttons_linkedin'] : '',
+			'ENABLE_OG'				=> isset($this->config['socialbuttons_enable_og']) ? $this->config['socialbuttons_enable_og'] : '',
+			'ENABLE_OG_TITLE'		=> isset($this->config['socialbuttons_enable_og_title']) ? $this->config['socialbuttons_enable_og_title'] : '',
+			'OG_IMAGE'				=> isset($this->config['socialbuttons_og_image']) ? $this->config['socialbuttons_og_image'] : '',
+			'OG_URL'				=> $url,
+			'OG_TITLE'				=> $event['page_title'],
+		));
+		$this->user->add_lang_ext('tas2580/socialbuttons', 'common');					
+	}
+	
+	/**
+	* Display Social Media Buttons at topics page
+	*
+	* @param	object	$event	The event object
+	* @return	null
+	* @access	public
+	*/
+	public function display_on_viewtopic($event)
 	{
 		$enabled_forums = isset($this->config['socialbuttons_enable_forums']) ? explode(',', $this->config['socialbuttons_enable_forums']) : array();
 		$enable_buttons = ((isset($this->config['socialbuttons_enable']) && $this->config['socialbuttons_enable']) || in_array($event['topic_data']['forum_id'], $enabled_forums));
 		
-		// we can not use $this->user->page['page'] because it fails on use of SEO extensions
-		$page = str_replace('&amp;', '&', $this->request->server('REQUEST_URI'));
-		$host = $this->request->server('HTTP_HOST');
-		$https = $this->request->server('HTTPS');
-		
 		// Generate the full URL of the topic without session ID
 		$use_seo_urls = isset($this->config['socialbuttons_use_seo_urls']) ? $this->config['socialbuttons_use_seo_urls'] : 0;
-		$url = ($use_seo_urls == 1) ? ($https ? 'https://' : 'http://') . $host . '/' . $page : generate_board_url() . '/viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id'];
-
+		if($use_seo_urls)
+		{
+			// we can not use $this->user->page['page'] because it fails on use of SEO extensions
+			$page = $this->request->server('REQUEST_URI');
+			if(!$page)
+			{
+				// IIS
+				$page = $this->request->server('HTTP_X_REWRITE_URL');
+			}
+			$host = $this->request->server('HTTP_HOST');
+			$https = $this->request->server('HTTPS');
+			$url = ($https ? 'https://' : 'http://') . $host . '/' . $page;
+		}
+		else
+		{
+			$url = generate_board_url() . '/viewtopic.php?f=' . $event['topic_data']['forum_id'] . '&t=' . $event['topic_data']['topic_id'];
+		}
+		
 		// Display the shares count
 		if($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
 		{
@@ -191,6 +245,7 @@ class listener implements EventSubscriberInterface
 				{
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $query_url);
+					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 					curl_setopt($ch, CURLOPT_NOBODY, false);
 					curl_setopt($ch, CURLOPT_HEADER, false); 
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
