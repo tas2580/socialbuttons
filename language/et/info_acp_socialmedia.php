@@ -33,5 +33,5 @@ if (empty($lang) || !is_array($lang))
 // ’ » “ ” …
 //
 $lang = array_merge($lang, array(
-	'ACP_SOCIALBUTTONS_TITLE'	=> 'Sotsiaalmeedia nupud',
+	'ACP_SOCIALBUTTONS_TITLE'	=> 'Sotsiaalvõrgustikke nupud',
 ));
