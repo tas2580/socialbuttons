@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "Displays social media buttons at the bottom of the current topic's page.",
 	"homepage": "https://tas2580.net/downloads/download-7.html",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"keywords": ["phpbb", "extension", "social", "topics"],
 	"license": "GPL-2.0",
 	"authors": [
@@ -24,7 +24,7 @@
 	"extra": {
 		"display-name": "tas2580 Social Media Buttons",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.0-RC2,<3.2.*@dev"
+			"phpbb/phpbb": ">=3.1.4-RC1,<3.2.*@dev"
 		},
 		"version-check": {
 			"host": "tas2580.net",

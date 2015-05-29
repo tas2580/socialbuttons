@@ -16,7 +16,7 @@ class socialbuttons_info
         return array(
             'filename'    => '\tas2580\socialbuttons\socialbuttons_module',
             'title'        => 'ACP_SOCIALBUTTONS_TITLE',
-            'version'    => '0.5.0',
+            'version'    => '0.5.1',
             'modes'        => array(
                 'settings'    => array(
                     'title' => 'ACP_SOCIALBUTTONS_TITLE',
