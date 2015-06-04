@@ -209,6 +209,7 @@ class listener implements EventSubscriberInterface
 		$shares = array();
 		$cache_time = isset($this->config['socialbuttons_cachetime']) ? $this->config['socialbuttons_cachetime'] : 0;
 		$multiplicator = isset($this->config['socialbuttons_multiplicator']) ? $this->config['socialbuttons_multiplicator'] : 1;
+		
 		$cachetime = ((int) $cache_time * (int) $multiplicator);
 		$cache_file = $this->phpbb_root_path . 'ext/tas2580/socialbuttons/cache/' . md5($url) . '.json';
 		$filetime = file_exists($cache_file) ? filemtime($cache_file) : 0;
