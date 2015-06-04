@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580 (https://tas2580.net)
+* @copyright (c) 2015 tas2580 (https://tas2580.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -83,28 +83,28 @@ class socialbuttons_module
 
 		$template->assign_vars(array(
 			'S_CACHE_WRITEABLE'			=> is_writable($cache_path),
-			'CACHEPATH_NOT_WRITEABLE'	=> sprintf($user->lang['CACHE_PATH_NOT_WRITEABLE'], $cache_path),
+			'CACHEPATH_NOT_WRITEABLE'		=> sprintf($user->lang['CACHE_PATH_NOT_WRITEABLE'], $cache_path),
 			'U_ACTION'					=> $this->u_action,
-            'POSITION_OPTIONS'			=> $this->position_select($position),
+			   'POSITION_OPTIONS'			=> $this->position_select($position),
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
 			'BUTTON_STYLES'				=> $this->button_style($style),
 			'S_ENABLE'					=> isset($config['socialbuttons_enable']) ? $config['socialbuttons_enable'] : 0,
-			'S_DISPLAY_ON_INDEX'		=> isset($config['socialbuttons_display_on_index']) ? $config['socialbuttons_display_on_index'] : 0,
-			'S_USE_SEO_URLS'			=> isset($config['socialbuttons_use_seo_urls']) ? $config['socialbuttons_use_seo_urls'] : 0,
+			'S_DISPLAY_ON_INDEX'			=> isset($config['socialbuttons_display_on_index']) ? $config['socialbuttons_display_on_index'] : 0,
+			'S_USE_SEO_URLS'				=> isset($config['socialbuttons_use_seo_urls']) ? $config['socialbuttons_use_seo_urls'] : 0,
 			'S_SHOWSHARES'				=> isset($config['socialbuttons_showshares']) ? $config['socialbuttons_showshares'] : 0,
 			'CACHETIME'					=> isset($config['socialbuttons_cachetime']) ? $config['socialbuttons_cachetime'] : 0,
-			'S_FACEBOOK'				=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
+			'S_FACEBOOK'					=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
 			'S_TWITTER'					=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
 			'S_GOOGLE'					=> isset($config['socialbuttons_google']) ? $config['socialbuttons_google'] : '',
-			'S_LINKEDIN'				=> isset($config['socialbuttons_linkedin']) ? $config['socialbuttons_linkedin'] : '',
-			'S_ENABLE_OG'				=> isset($config['socialbuttons_enable_og']) ? $config['socialbuttons_enable_og'] : '',
+			'S_LINKEDIN'					=> isset($config['socialbuttons_linkedin']) ? $config['socialbuttons_linkedin'] : '',
+			'S_ENABLE_OG'					=> isset($config['socialbuttons_enable_og']) ? $config['socialbuttons_enable_og'] : '',
 			'S_ENABLE_OG_TITLE'			=> isset($config['socialbuttons_enable_og_title']) ? $config['socialbuttons_enable_og_title'] : '',
 			'S_ENABLE_OG_DESC'			=> isset($config['socialbuttons_enable_og_desc']) ? $config['socialbuttons_enable_og_desc'] : '',
 			'OG_IMAGE'					=> isset($config['socialbuttons_og_image']) ? $config['socialbuttons_og_image'] : '',
 			'FORUM_DESC_SELECT'			=> make_forum_select($desc_forums, false, false, true),
-			'FORUM_ENABLE_SELECT'		=> make_forum_select($forums, false, false, true),
+			'FORUM_ENABLE_SELECT'			=> make_forum_select($forums, false, false, true),
 		));
-    }
+	}
 
 	/**
 	 * Generates a list of styles for the buttons
@@ -157,6 +157,4 @@ class socialbuttons_module
 		$return .= '<option' . (($selected == 3600) ? ' selected="selected"' : '') . ' value="3600">' . $user->lang('ACP_MULTIPLICATOR_HOURS') . '</option>';
 		return $return;
 	}
-
 }
-

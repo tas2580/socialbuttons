@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2014 tas2580 (https://tas2580.net)
+* @copyright (c) 2015 tas2580 (https://tas2580.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 * 
 */
@@ -31,15 +31,14 @@ class listener implements EventSubscriberInterface
 	/** @var string phpbb_root_path */
 	protected $phpbb_root_path;
 	
-	
 	/**
 	* Constructor
 	*
 	* @param \phpbb\config\config			$config				Config Object
-	* @param \phpbb\template\template		$template			Template object
+	* @param \phpbb\template\template		$template				Template object
 	* @param \phpbb\user					$user				User object
-	* @param \phpbb\request\request			$request			Request object
-	* @param string							$phpbb_root_path	phpbb_root_path
+	* @param \phpbb\request\request			$request				Request object
+	* @param string						$phpbb_root_path		phpbb_root_path
 	* @access public
 	*/
 	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user,  \phpbb\request\request $request, $phpbb_root_path)
@@ -75,7 +74,7 @@ class listener implements EventSubscriberInterface
 	* @return	null
 	* @access	public
 	*/
-	function display_og_description($event)
+	public function display_og_description($event)
 	{
 		if(empty($this->description))
 		{
@@ -95,7 +94,7 @@ class listener implements EventSubscriberInterface
 	* @return	null
 	* @access	public
 	*/
-	function display_on_index($event)
+	public function display_on_index($event)
 	{
 		$url = generate_board_url();
 		$enable_buttons = isset($this->config['socialbuttons_display_on_index']) ? $this->config['socialbuttons_display_on_index'] : 0;
@@ -214,14 +213,15 @@ class listener implements EventSubscriberInterface
 		$cachetime = ((int) $cache_time * (int) $multiplicator);
 		$cache_file = $this->phpbb_root_path . 'ext/tas2580/socialbuttons/cache/' . md5($url) . '.json';
 		$filetime = file_exists($cache_file) ? filemtime($cache_file) : 0;
-
+		$url = urlencode($url);
+		
 		// If cache is too old or we have no cache query the platforms
 		if(($filetime == 0) || ($filetime < (time() - $cachetime)))
 		{
 			// Collect the querys
 			if(isset($this->config['socialbuttons_facebook']) && ($this->config['socialbuttons_facebook'] == 1))
 			{
-				$querys['facebook']	= 'https://www.facebook.com/plugins/like.php?&layout=box_count&href=' . $url;
+				$querys['facebook'] = 'https://www.facebook.com/plugins/like.php?&layout=box_count&href=' . $url;
 			}
 			if(isset($this->config['socialbuttons_twitter']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
@@ -271,7 +271,7 @@ class listener implements EventSubscriberInterface
 				}
 				curl_multi_close($mh);
 			}
-			// no curl we have to do it the old way
+			// No curl we have to do it the old way
 			else
 			{
 				//Set the useragent
@@ -283,7 +283,7 @@ class listener implements EventSubscriberInterface
 				}
 			}
 			
-			//Get the number of shares from response
+			// Get the number of shares from response
 			$matches = array();
 			preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $content['google'], $matches);
 			$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
@@ -297,7 +297,7 @@ class listener implements EventSubscriberInterface
 			$pageinfo = json_decode($content['linkedin'], true);
 			$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 			
-			// Write the cache
+			// Write data to cache
 			if(is_writable(dirname($cache_file)))
 			{
 				$json = json_encode($shares);
