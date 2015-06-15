@@ -17,9 +17,9 @@ class socialbuttons_module
     {
         global $config, $user, $template, $request, $phpbb_root_path;
 
-		$user->add_lang_ext('tas2580/socialbuttons', 'common');		
-        $this->tpl_name = 'acp_socialbuttons_body';
-        $this->page_title = $user->lang('ACP_SOCIALBUTTONS_TITLE');
+	$user->add_lang_ext('tas2580/socialbuttons', 'common');
+	$this->tpl_name = 'acp_socialbuttons_body';
+	$this->page_title = $user->lang('ACP_SOCIALBUTTONS_TITLE');
 
 		add_form_key('acp_socialbuttons');
 
@@ -32,16 +32,16 @@ class socialbuttons_module
 			}
 			$cache_path = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/';
 			$handle = opendir($cache_path);
-			while (false !== ($file = readdir($handle))) 
+			while (false !== ($file = readdir($handle)))
 			{
 				if(is_file($cache_path . $file))
 				{
 					unlink($cache_path . $file);
 				}
 			}
-			trigger_error($user->lang('ACP_CACHE_PURGE_SUCCESS') . adm_back_link($this->u_action));	
+			trigger_error($user->lang('ACP_CACHE_PURGE_SUCCESS') . adm_back_link($this->u_action));
 		}
-		
+
 		// Form is submitted
 		if($request->is_set_post('submit'))
 		{
@@ -85,7 +85,7 @@ class socialbuttons_module
 			'S_CACHE_WRITEABLE'			=> is_writable($cache_path),
 			'CACHEPATH_NOT_WRITEABLE'		=> sprintf($user->lang['CACHE_PATH_NOT_WRITEABLE'], $cache_path),
 			'U_ACTION'					=> $this->u_action,
-			   'POSITION_OPTIONS'			=> $this->position_select($position),
+			'POSITION_OPTIONS'				=> $this->position_select($position),
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
 			'BUTTON_STYLES'				=> $this->button_style($style),
 			'S_ENABLE'					=> isset($config['socialbuttons_enable']) ? $config['socialbuttons_enable'] : 0,
@@ -108,10 +108,10 @@ class socialbuttons_module
 
 	/**
 	 * Generates a list of styles for the buttons
-	 * 
+	 *
 	 * @global	object	$phpbb_extension_manager
 	 * @param	int		$selected
-	 * @return	string	
+	 * @return	string
 	 */
 	private function button_style($selected)
 	{
@@ -128,7 +128,7 @@ class socialbuttons_module
 
 	/**
 	 * Generates a option list with positions for the buttons
-	 * 
+	 *
 	 * @global	object	$user
 	 * @param	int		$selected
 	 * @return string
@@ -144,7 +144,7 @@ class socialbuttons_module
 
 	/**
 	 * Generates a option list for the cache tine multiplicator
-	 * 
+	 *
 	 * @global	object	$user
 	 * @param	int		$selected
 	 * @return string
