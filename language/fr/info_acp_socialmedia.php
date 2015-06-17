@@ -1,10 +1,11 @@
 <?php
 /**
 *
-* @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2015 tas2580 (https://tas2580.net)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* Social Media Buttons extension for the phpBB Forum Software package.
 * French translation by Galixte (http://www.galixte.com)
+*
+* @copyright (c) 2015 tas2580 <https://tas2580.net>
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
 
