@@ -24,7 +24,7 @@ class socialbuttons_module
 		add_form_key('acp_socialbuttons');
 
 		// Purge the cache
-		if($request->is_set_post('action_purge_cache'))
+		if ($request->is_set_post('action_purge_cache'))
 		{
 			if (!check_form_key('acp_socialbuttons'))
 			{
@@ -34,7 +34,7 @@ class socialbuttons_module
 			$handle = opendir($cache_path);
 			while (false !== ($file = readdir($handle)))
 			{
-				if(is_file($cache_path . $file))
+				if (is_file($cache_path . $file))
 				{
 					unlink($cache_path . $file);
 				}

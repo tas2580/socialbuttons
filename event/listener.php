@@ -262,7 +262,7 @@ class listener implements EventSubscriberInterface
 				{
 					curl_multi_exec($mh, $running);
 				}
-				while($running > 0);
+				while ($running > 0);
 
 				// Get the resonse
 				foreach ($handle as $platform => $ch)
