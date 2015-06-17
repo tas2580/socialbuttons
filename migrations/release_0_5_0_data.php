@@ -7,6 +7,7 @@
 *
 */
 namespace tas2580\socialbuttons\migrations;
+
 class release_0_5_0_data extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()

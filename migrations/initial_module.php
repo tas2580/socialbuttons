@@ -34,7 +34,7 @@ class initial_module extends \phpbb\db\migration\migration
 			array('config.add', array('socialbuttons_enable', '')),
 			// Keep track of version in the database
 			array('config.add', array('socialbuttons_version', '1.0.0-RC1')),
-			
+
 			// Add ACP module
 			array('module.add', array(
 				'acp',

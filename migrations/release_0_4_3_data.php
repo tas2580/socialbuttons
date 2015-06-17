@@ -23,7 +23,7 @@ class release_0_4_3_data extends \phpbb\db\migration\migration
 			array('config.add', array('socialbuttons_og_image', '')),
 			array('config.add', array('socialbuttons_enable_og_title', '1')),
 			array('config.add', array('socialbuttons_enable_og_desc', '1')),
-			
+
 			array('config.add', array('socialbuttons_version', '0.4.3')),
 		);
 	}
