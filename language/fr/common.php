@@ -1,10 +1,11 @@
 <?php
 /**
 *
-* @package phpBB Extension - tas2580 Social Media Buttons
-* @copyright (c) 2015 tas2580 (https://tas2580.net)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* Social Media Buttons extension for the phpBB Forum Software package.
 * French translation by Galixte (http://www.galixte.com)
+*
+* @copyright (c) 2015 tas2580 <https://tas2580.net>
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
 
@@ -58,7 +59,7 @@ $lang = array_merge($lang, array(
 	'ACP_OG_TAGS'				=> 'Meta-Tags OG',
 	'ACP_OG_TITLE_EXPLAIN'			=> 'Si activé, le titre du sujet sera utilisé comme og:title.',
 	'ACP_POSITION'					=> 'Position',
-	'ACP_POSITION_EXPLAIN'			=> 'Choisir une position où les boutons doivent être affichés.',
+	'ACP_POSITION_EXPLAIN'			=> 'Choisir une position où les boutons doivent être affichés sur les sujets.',
 	'ACP_POSITION_ALL'				=> 'En haut et en bas',
 	'ACP_POSITION_BOTTOM'			=> 'En bas',
 	'ACP_POSITION_TOP'				=> 'En haut',
