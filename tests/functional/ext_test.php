@@ -20,5 +20,4 @@ class ext_test extends \phpbb_functional_test_case
 	{
 		$this->add_lang_ext('tas2580/socialbuttons', 'common');
 	}
-
 }

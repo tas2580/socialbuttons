@@ -11,15 +11,15 @@ namespace tas2580\socialbuttons\acp;
 
 class socialbuttons_module
 {
-    public $u_action;
+	public $u_action;
 
-    public function main($id, $mode)
-    {
-        global $config, $user, $template, $request, $phpbb_root_path;
+	public function main($id, $mode)
+	{
+		global $config, $user, $template, $request, $phpbb_root_path;
 
-	$user->add_lang_ext('tas2580/socialbuttons', 'common');
-	$this->tpl_name = 'acp_socialbuttons_body';
-	$this->page_title = $user->lang('ACP_SOCIALBUTTONS_TITLE');
+		$user->add_lang_ext('tas2580/socialbuttons', 'common');
+		$this->tpl_name = 'acp_socialbuttons_body';
+		$this->page_title = $user->lang('ACP_SOCIALBUTTONS_TITLE');
 
 		add_form_key('acp_socialbuttons');
 
@@ -43,7 +43,7 @@ class socialbuttons_module
 		}
 
 		// Form is submitted
-		if($request->is_set_post('submit'))
+		if ($request->is_set_post('submit'))
 		{
 			if (!check_form_key('acp_socialbuttons'))
 			{
@@ -73,7 +73,7 @@ class socialbuttons_module
 			trigger_error($user->lang('ACP_SAVED') . adm_back_link($this->u_action));
 		}
 
-        // Send the curent settings to template
+		// Send the curent settings to template
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 0;
 		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : 1;
 		$style = isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1;
@@ -118,7 +118,7 @@ class socialbuttons_module
 		global  $phpbb_extension_manager;
 		$path = $phpbb_extension_manager->get_extension_path('tas2580/socialbuttons', true) . 'styles/prosilver/theme/images/';
 		$return = '';
-		for($i = 1; $i <= 10; $i++)
+		for ($i = 1; $i <= 10; $i++)
 		{
 			$checked = ($selected == $i) ? ' checked="checked"' : '';
 			$return .= '<input type="radio"' . $checked . ' class="radio" id="style" name="style" value="' . $i . '" /> <img align="top" src="' . $path . 'sprite' . $i . '.png" alt="style' . $i . '" /><br /><br />';

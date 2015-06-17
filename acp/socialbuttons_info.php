@@ -11,19 +11,19 @@ namespace tas2580\socialbuttons\acp;
 
 class socialbuttons_info
 {
-    function module()
-    {
-        return array(
-            'filename'    => '\tas2580\socialbuttons\socialbuttons_module',
-            'title'        => 'ACP_SOCIALBUTTONS_TITLE',
-            'version'    => '1.0.0-RC1',
-            'modes'        => array(
-                'settings'    => array(
-                    'title' => 'ACP_SOCIALBUTTONS_TITLE',
-                    'auth' => 'ext_tas2580/socialbuttons && acl_a_board', 
-                    'cat' => array('ACP_SOCIALBUTTONS_TITLE')
-                ),
-            ),
-        );
-    }
+	function module()
+	{
+		return array(
+			'filename'	=> '\tas2580\socialbuttons\socialbuttons_module',
+			'title'		=> 'ACP_SOCIALBUTTONS_TITLE',
+			'version'	=> '1.0.0-RC2',
+			'modes'	=> array(
+				'settings'	=> array(
+					'title'		=> 'ACP_SOCIALBUTTONS_TITLE',
+					'auth'	=> 'ext_tas2580/socialbuttons && acl_a_board',
+					'cat'		=> array('ACP_SOCIALBUTTONS_TITLE')
+				),
+			),
+		);
+	}
 }

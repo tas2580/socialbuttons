@@ -9,12 +9,12 @@
 
 if (!defined('IN_PHPBB'))
 {
-    exit;
+	exit;
 }
 
 if (empty($lang) || !is_array($lang))
 {
-    $lang = array();
+	$lang = array();
 }
 // DEVELOPERS PLEASE NOTE
 //
@@ -32,28 +32,28 @@ if (empty($lang) || !is_array($lang))
 // ’ » “ ” …
 //
 $lang = array_merge($lang, array(
-	'SOCIAL_BUTTONS'			=> 'Jaga seda sotsiaalmeedias',
-	'SHARE_FACEBOOK'			=> 'Jaga Facebookis',
+	'SOCIAL_BUTTONS'				=> 'Jaga seda sotsiaalmeedias',
+	'SHARE_FACEBOOK'				=> 'Jaga Facebookis',
 	'SHARE_TWITTER'				=> 'Jaga Twitteris',
 	'SHARE_GOOGLEPLUS'			=> 'Jaga Google+\'is',
-	'SHARE_LINKEDIN'			=> 'Jaga Linkedin\'is',
+	'SHARE_LINKEDIN'				=> 'Jaga Linkedin\'is',
 	'ACP_SETTINGS'				=> 'Seaded',
-	'ACP_POSITION'				=> 'Asukoht',
-	'ACP_POSITION_EXPLAIN'		=> 'Asukoht, kus soovid nuppe näidata.',
-	'ACP_SUBMIT'				=> 'Uuenda muudatused',
-	'ACP_POSITION_ALL'			=> 'Ülesse ja alla',
-	'ACP_POSITION_TOP'			=> 'Üles',
-	'ACP_POSITION_BOTTOM'		=> 'Alla',
+	'ACP_POSITION'					=> 'Asukoht',
+	'ACP_POSITION_EXPLAIN'			=> 'Asukoht, kus soovid nuppe näidata.',
+	'ACP_SUBMIT'					=> 'Uuenda muudatused',
+	'ACP_POSITION_ALL'				=> 'Ülesse ja alla',
+	'ACP_POSITION_TOP'				=> 'Üles',
+	'ACP_POSITION_BOTTOM'			=> 'Alla',
 	'ACP_CACHETIME'				=> 'Vahemälu aeg',
 	'ACP_CACHETIME_EXPLAIN'		=> 'Kui kauaks peaks andmed jääma vahemällu?',
 	'ACP_MULTIPLICATOR_SECONDS'	=> 'Sekundit',
 	'ACP_MULTIPLICATOR_MINUTES'	=> 'Minutit',
-	'ACP_MULTIPLICATOR_HOURS'	=> 'Tundi',
+	'ACP_MULTIPLICATOR_HOURS'		=> 'Tundi',
 	'ACP_SET_PLATFORMS'			=> 'Luba järgnevad',
 	'ACP_FACEBOOK'				=> 'Facebook',
-	'ACP_TWITTER'				=> 'Twitter',
-	'ACP_GOOGLE'				=> 'Google Plus',
-	'ACP_LINKEDIN'				=> 'Linkedin',
+	'ACP_TWITTER'					=> 'Twitter',
+	'ACP_GOOGLE'					=> 'Google Plus',
+	'ACP_LINKEDIN'					=> 'Linkedin',
 	'ACP_SAVED'					=> 'Sotsiaalmeedia nuppude seaded uuendatud.',
 	'ACP_STYLE'					=> 'Stiil',
 	'ACP_STYLE_EXPLAIN'			=> 'Vali stiil nupud',

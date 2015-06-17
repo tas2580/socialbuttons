@@ -41,7 +41,7 @@ class listener implements EventSubscriberInterface
 	* @param string						$phpbb_root_path		phpbb_root_path
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user,  \phpbb\request\request $request, $phpbb_root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user, \phpbb\request\request $request, $phpbb_root_path)
 	{
 		$this->config = $config;
 		$this->template = $template;
@@ -76,7 +76,7 @@ class listener implements EventSubscriberInterface
 	*/
 	public function display_og_description($event)
 	{
-		if(empty($this->description))
+		if (empty($this->description))
 		{
 			$desctiption = strip_tags($event['post_row']['MESSAGE']);
 			//Facebook only displays the first 300 characters of a description, so we can cut the post text after 300 characters
@@ -99,7 +99,7 @@ class listener implements EventSubscriberInterface
 		$url = generate_board_url();
 		$enable_buttons = isset($this->config['socialbuttons_display_on_index']) ? $this->config['socialbuttons_display_on_index'] : 0;
 		// Display the shares count
-		if($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
+		if ($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
 		{
 			$shares = $this->get_share_count($url, 'index');
 			$this->template->assign_vars(array(
@@ -143,11 +143,11 @@ class listener implements EventSubscriberInterface
 
 		// Generate the full URL of the topic without session ID
 		$use_seo_urls = isset($this->config['socialbuttons_use_seo_urls']) ? $this->config['socialbuttons_use_seo_urls'] : 0;
-		if($use_seo_urls)
+		if ($use_seo_urls)
 		{
 			// we can not use $this->user->page['page'] because it fails on use of SEO extensions
 			$page = $this->request->server('REQUEST_URI');
-			if(!$page)
+			if (!$page)
 			{
 				// IIS
 				$page = $this->request->server('HTTP_X_REWRITE_URL');
@@ -162,7 +162,7 @@ class listener implements EventSubscriberInterface
 		}
 
 		// Display the shares count
-		if($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
+		if ($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
 		{
 			$token = 't' . $event['topic_data']['topic_id'] . '-' . $event['start'];
 			$shares = $this->get_share_count($url, $token);
@@ -218,32 +218,32 @@ class listener implements EventSubscriberInterface
 		$url = urlencode($url);
 
 		// If cache is too old or we have no cache query the platforms
-		if(($filetime == 0) || ($filetime < (time() - $cachetime)))
+		if (($filetime == 0) || ($filetime < (time() - $cachetime)))
 		{
 			// Collect the querys
-			if(isset($this->config['socialbuttons_facebook']) && ($this->config['socialbuttons_facebook'] == 1))
+			if (isset($this->config['socialbuttons_facebook']) && ($this->config['socialbuttons_facebook'] == 1))
 			{
 				$querys['facebook'] = 'https://www.facebook.com/plugins/like.php?&layout=box_count&href=' . $url;
 			}
-			if(isset($this->config['socialbuttons_twitter']) && ($this->config['socialbuttons_twitter'] == 1))
+			if (isset($this->config['socialbuttons_twitter']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
 				$querys['twitter'] = 'https://cdn.api.twitter.com/1/urls/count.json?url=' . $url;
 			}
-			if(isset($this->config['socialbuttons_google']) && ($this->config['socialbuttons_twitter'] == 1))
+			if (isset($this->config['socialbuttons_google']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
 				$querys['google'] = 'https://plusone.google.com/_/+1/fastbutton?url=' . $url;
 			}
-			if(isset($this->config['socialbuttons_linkedin']) && ($this->config['socialbuttons_twitter'] == 1))
+			if (isset($this->config['socialbuttons_linkedin']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
 				$querys['linkedin'] = 'https://www.linkedin.com/countserv/count/share?format=json&url=' . $url;
 			}
 
 			// Do we have curl? We can query all platforms paralel what is mutch faster
-			if(function_exists('curl_multi_init') && function_exists('curl_multi_exec'))
+			if (function_exists('curl_multi_init') && function_exists('curl_multi_exec'))
 			{
 				// Set curl options for each URL
 				$mh = curl_multi_init();
-				foreach($querys as $platform => $query_url)
+				foreach ($querys as $platform => $query_url)
 				{
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $query_url);
@@ -265,7 +265,7 @@ class listener implements EventSubscriberInterface
 				while($running > 0);
 
 				// Get the resonse
-				foreach($handle as $platform => $ch)
+				foreach ($handle as $platform => $ch)
 				{
 					$handle = curl_multi_info_read($mh);
 					$content[$platform] = curl_multi_getcontent($ch);
@@ -279,7 +279,7 @@ class listener implements EventSubscriberInterface
 				//Set the useragent
 				$options  = array('http' => array('user_agent' => 'Mozilla/5.0 (Windows NT 6.1; rv:31.0) Gecko/20100101 Firefox/31.0'));
 				$context  = stream_context_create($options);
-				foreach($querys as $platform => $query_url)
+				foreach ($querys as $platform => $query_url)
 				{
 					$content[$platform] = file_get_contents($query_url, false, $context);
 				}
@@ -300,7 +300,7 @@ class listener implements EventSubscriberInterface
 			$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 
 			// Write data to cache
-			if(is_writable(dirname($cache_file)))
+			if (is_writable(dirname($cache_file)))
 			{
 				$json = json_encode($shares);
 				$handle = fopen($cache_file, 'w');
