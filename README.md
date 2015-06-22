@@ -4,8 +4,8 @@ This is an extension for the phpBB forums software. You need an instalation of p
 
 DESCRIPTION
 -------
-Adds Social Media Buttons on each thread. To protect the privacy of the users, requestets at the Social Media platforms 
-will be made by the web server. The data will be cached to avoid too many requests. 
+Adds Social Media Buttons on each thread. To protect the privacy of the users, requestets at the Social Media platforms
+will be made by the web server. The data will be cached to avoid too many requests.
 You can choose between 10 different styles for the buttons.
 
 <b>Supported Platforms:</b>
@@ -36,4 +36,4 @@ LICENSE
 -------
 <a href="http://opensource.org/licenses/gpl-2.0.php">GNU General Public License v2</a>
 
-[![Build Status](https://travis-ci.org/tas2580/phpBB-3.1-Social-Media-Buttons.svg?branch=master)](https://travis-ci.org/tas2580/phpBB-3.1-Social-Media-Buttons)
+[![Build Status](https://travis-ci.org/tas2580/socialbuttons.svg?branch=master)](https://travis-ci.org/socialbuttons)
