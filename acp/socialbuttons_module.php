@@ -121,7 +121,7 @@ class socialbuttons_module
 		for ($i = 1; $i <= 10; $i++)
 		{
 			$checked = ($selected == $i) ? ' checked="checked"' : '';
-			$return .= '<input type="radio"' . $checked . ' class="radio" id="style" name="style" value="' . $i . '" /> <img align="top" src="' . $path . 'sprite' . $i . '.png" alt="style' . $i . '" /><br /><br />';
+			$return .= '<input type="radio"' . $checked . ' class="radio" id="style" name="style" value="' . $i . '" /> <img align="top" src="' . $path . 'sprite' . $i . '.png" alt="" /><br /><br />';
 		}
 		return $return;
 	}
