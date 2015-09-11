@@ -97,7 +97,7 @@ class listener implements EventSubscriberInterface
 	public function display_on_index($event)
 	{
 		$url = generate_board_url();
-		$enable_buttons = isset($this->config['socialbuttons_display_on_index']) ? $this->config['socialbuttons_display_on_index'] : 0;
+		$enable_buttons = isset($this->config['socialbuttons_display_on_index']) ? $this->config['socialbuttons_display_on_index'] : false;
 		// Display the shares count
 		if ($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
 		{
@@ -142,7 +142,7 @@ class listener implements EventSubscriberInterface
 		$enable_buttons = ((isset($this->config['socialbuttons_enable']) && $this->config['socialbuttons_enable']) || in_array($event['topic_data']['forum_id'], $enabled_forums));
 
 		// Generate the full URL of the topic without session ID
-		$use_seo_urls = isset($this->config['socialbuttons_use_seo_urls']) ? $this->config['socialbuttons_use_seo_urls'] : 0;
+		$use_seo_urls = isset($this->config['socialbuttons_use_seo_urls']) ? $this->config['socialbuttons_use_seo_urls'] : false;
 		if ($use_seo_urls)
 		{
 			// we can not use $this->user->page['page'] because it fails on use of SEO extensions

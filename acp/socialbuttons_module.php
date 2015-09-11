@@ -74,9 +74,9 @@ class socialbuttons_module
 		}
 
 		// Send the curent settings to template
-		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : 0;
-		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : 1;
-		$style = isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : 1;
+		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : false;
+		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : true;
+		$style = isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : true;
 		$cache_path = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/';
 		$desc_forums = isset($config['socialbuttons_enable_og_desc_forums']) ? explode(',', $config['socialbuttons_enable_og_desc_forums']) : array();
 		$forums = isset($config['socialbuttons_enable_forums']) ? explode(',', $config['socialbuttons_enable_forums']) : array();
@@ -88,11 +88,11 @@ class socialbuttons_module
 			'POSITION_OPTIONS'				=> $this->position_select($position),
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
 			'BUTTON_STYLES'				=> $this->button_style($style),
-			'S_ENABLE'					=> isset($config['socialbuttons_enable']) ? $config['socialbuttons_enable'] : 0,
-			'S_DISPLAY_ON_INDEX'			=> isset($config['socialbuttons_display_on_index']) ? $config['socialbuttons_display_on_index'] : 0,
-			'S_USE_SEO_URLS'				=> isset($config['socialbuttons_use_seo_urls']) ? $config['socialbuttons_use_seo_urls'] : 0,
-			'S_SHOWSHARES'				=> isset($config['socialbuttons_showshares']) ? $config['socialbuttons_showshares'] : 0,
-			'CACHETIME'					=> isset($config['socialbuttons_cachetime']) ? $config['socialbuttons_cachetime'] : 0,
+			'S_ENABLE'					=> isset($config['socialbuttons_enable']) ? $config['socialbuttons_enable'] : false,
+			'S_DISPLAY_ON_INDEX'			=> isset($config['socialbuttons_display_on_index']) ? $config['socialbuttons_display_on_index'] : false,
+			'S_USE_SEO_URLS'				=> isset($config['socialbuttons_use_seo_urls']) ? $config['socialbuttons_use_seo_urls'] : false,
+			'S_SHOWSHARES'				=> isset($config['socialbuttons_showshares']) ? $config['socialbuttons_showshares'] : false,
+			'CACHETIME'					=> isset($config['socialbuttons_cachetime']) ? $config['socialbuttons_cachetime'] : false,
 			'S_FACEBOOK'					=> isset($config['socialbuttons_facebook']) ? $config['socialbuttons_facebook'] : '',
 			'S_TWITTER'					=> isset($config['socialbuttons_twitter']) ? $config['socialbuttons_twitter'] : '',
 			'S_GOOGLE'					=> isset($config['socialbuttons_google']) ? $config['socialbuttons_google'] : '',
@@ -121,7 +121,7 @@ class socialbuttons_module
 		for ($i = 1; $i <= 10; $i++)
 		{
 			$checked = ($selected == $i) ? ' checked="checked"' : '';
-			$return .= '<input type="radio"' . $checked . ' class="radio" id="style" name="style" value="' . $i . '" /> <img align="top" src="' . $path . 'sprite' . $i . '.png" alt="style' . $i . '" /><br /><br />';
+			$return .= '<input type="radio"' . $checked . ' class="radio" id="style" name="style" value="' . $i . '" /> <img align="top" src="' . $path . 'sprite' . $i . '.png" alt="" /><br /><br />';
 		}
 		return $return;
 	}
