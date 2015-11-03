@@ -25,11 +25,6 @@
 		"display-name": "tas2580 Social Media Buttons",
 		"soft-require": {
 			"phpbb/phpbb": ">=3.1.4-RC1,<3.2.*@dev"
-		},
-		"version-check": {
-			"host": "tas2580.net",
-			"directory": "/modules/downloads/version",
-			"filename": "download7.json"
 		}
 	}
 }
