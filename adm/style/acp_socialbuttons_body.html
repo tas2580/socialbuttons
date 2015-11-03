@@ -1,12 +1,7 @@
 <!-- INCLUDE overall_header.html -->
 <h1>{L_ACP_SOCIALBUTTONS_TITLE}</h1>
 
-<!-- IF not S_CACHE_WRITEABLE -->
-<div class="errorbox">{CACHEPATH_NOT_WRITEABLE}</div>
-<!-- ENDIF -->
-
 <form method="post" action="{U_ACTION}">
-
 <fieldset>
 	<legend>{L_ACP_SETTINGS}</legend>
 	<dl>
@@ -127,7 +122,5 @@
 	</p>
 	{S_FORM_TOKEN}
 </fieldset>
-
-
 </form>
 <!-- INCLUDE overall_footer.html -->

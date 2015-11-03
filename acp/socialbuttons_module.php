@@ -77,13 +77,10 @@ class socialbuttons_module
 		$position = isset($config['socialbuttons_position']) ? $config['socialbuttons_position'] : false;
 		$multiplicator = isset($config['socialbuttons_multiplicator']) ? $config['socialbuttons_multiplicator'] : true;
 		$style = isset($config['socialbuttons_style']) ? $config['socialbuttons_style'] : true;
-		$cache_path = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/';
 		$desc_forums = isset($config['socialbuttons_enable_og_desc_forums']) ? explode(',', $config['socialbuttons_enable_og_desc_forums']) : array();
 		$forums = isset($config['socialbuttons_enable_forums']) ? explode(',', $config['socialbuttons_enable_forums']) : array();
 
 		$template->assign_vars(array(
-			'S_CACHE_WRITEABLE'			=> is_writable($cache_path),
-			'CACHEPATH_NOT_WRITEABLE'		=> sprintf($user->lang['CACHE_PATH_NOT_WRITEABLE'], $cache_path),
 			'U_ACTION'					=> $this->u_action,
 			'POSITION_OPTIONS'				=> $this->position_select($position),
 			'MULTIPLICATOR_OPTIONS'		=> $this->multiplicator_select($multiplicator),
