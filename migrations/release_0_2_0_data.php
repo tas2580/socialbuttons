@@ -28,21 +28,6 @@ class release_0_2_0_data extends \phpbb\db\migration\migration
 			array('config.add', array('socialbuttons_google', '1')),
 			array('config.add', array('socialbuttons_linkedin', '1')),
 
-			// Add ACP module
-			array('module.add', array(
-				'acp',
-				'ACP_CAT_DOT_MODS',
-				'ACP_SOCIALBUTTONS_TITLE'
-			)),
-			array('module.add', array(
-				'acp',
-				'ACP_SOCIALBUTTONS_TITLE',
-				array(
-					'module_basename'	=> '\tas2580\socialbuttons\acp\socialbuttons_module',
-					'modes'				=> array('settings'),
-				),
-			)),
-
 			// Keep track of version in the database
 			array('config.add', array('socialbuttons_version', '0.2.0')),
 		);
