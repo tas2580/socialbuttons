@@ -169,8 +169,7 @@ class listener implements EventSubscriberInterface
 		// Display the shares count
 		if ($enable_buttons && isset($this->config['socialbuttons_showshares']) && $this->config['socialbuttons_showshares'])
 		{
-			$token = 't' . $event['topic_data']['topic_id'] . '-' . $event['start'];
-			$shares = $this->get_share_count($url, $token);
+			$shares = $this->get_share_count($url);
 			$this->template->assign_vars(array(
 				'S_SHOWSHARES'			=> true,
 				'SHARES_FACEBOOK'		=> isset($shares['facebook']) ? (int) $shares['facebook'] : 0,
@@ -211,9 +210,8 @@ class listener implements EventSubscriberInterface
 	* @return	array
 	* @access private
 	*/
-	private function get_share_count($url, $token)
+	private function get_share_count($url)
 	{
-
 		$cache_time = isset($this->config['socialbuttons_cachetime']) ? $this->config['socialbuttons_cachetime'] : 0;
 		$multiplicator = isset($this->config['socialbuttons_multiplicator']) ? $this->config['socialbuttons_multiplicator'] : 1;
 
@@ -305,13 +303,12 @@ class listener implements EventSubscriberInterface
 
 			// Write data to cache
 			$this->cache->put($cache_file, $shares, $cachetime);
+			return $shares;
 		}
-		// Read data from cache
 		else
 		{
-			$json = file_get_contents($cache_file);
-			$shares = json_decode($json, true);
+			// return data from cache
+			return $shares;
 		}
-		return $shares;
 	}
 }
