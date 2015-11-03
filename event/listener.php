@@ -25,8 +25,11 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\user\user */
 	protected $user;
 
-	/* @var \phpbb\request\request */
+	/** @var \phpbb\request\request */
 	protected $request;
+
+	/** @var \phpbb\cache\driver\driver_interface */
+	protected $cache;
 
 	/** @var string phpbb_root_path */
 	protected $phpbb_root_path;
@@ -34,19 +37,21 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config			$config				Config Object
-	* @param \phpbb\template\template		$template				Template object
-	* @param \phpbb\user					$user				User object
-	* @param \phpbb\request\request			$request				Request object
-	* @param string						$phpbb_root_path		phpbb_root_path
+	* @param \phpbb\config\config				$config				Config Object
+	* @param \phpbb\template\template			$template				Template object
+	* @param \phpbb\user						$user				User object
+	* @param \phpbb\request\request				$request				Request object
+	* @param \phpbb\cache\driver\driver_interface	$cache				Cache driver interface
+	* @param string							$phpbb_root_path		phpbb_root_path
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user, \phpbb\request\request $request, $phpbb_root_path)
+	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user, \phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, $phpbb_root_path)
 	{
 		$this->config = $config;
 		$this->template = $template;
 		$this->user = $user;
 		$this->request = $request;
+		$this->cache = $cache;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->description = '';
 	}
@@ -208,17 +213,16 @@ class listener implements EventSubscriberInterface
 	*/
 	private function get_share_count($url, $token)
 	{
-		$shares = array();
+
 		$cache_time = isset($this->config['socialbuttons_cachetime']) ? $this->config['socialbuttons_cachetime'] : 0;
 		$multiplicator = isset($this->config['socialbuttons_multiplicator']) ? $this->config['socialbuttons_multiplicator'] : 1;
 
 		$cachetime = ((int) $cache_time * (int) $multiplicator);
-		$cache_file = $this->phpbb_root_path . 'ext/tas2580/socialbuttons/cache/' . $token . '.json';
-		$filetime = file_exists($cache_file) ? filemtime($cache_file) : 0;
-		$url = urlencode($url);
+		$cache_file = '_socialbuttons_' . $url;
+		$shares = $this->cache->get($cache_file);
 
-		// If cache is too old or we have no cache query the platforms
-		if (($filetime == 0) || ($filetime < (time() - $cachetime)))
+		// If cache is too old or we have no cache, query the platforms
+		if ($shares === false)
 		{
 			// Collect the querys
 			if (isset($this->config['socialbuttons_facebook']) && ($this->config['socialbuttons_facebook'] == 1))
@@ -300,13 +304,7 @@ class listener implements EventSubscriberInterface
 			$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 
 			// Write data to cache
-			if (is_writable(dirname($cache_file)))
-			{
-				$json = json_encode($shares);
-				$handle = fopen($cache_file, 'w');
-				fwrite($handle, $json);
-				fclose($handle);
-			}
+			$this->cache->put($cache_file, $shares, $cachetime);
 		}
 		// Read data from cache
 		else
