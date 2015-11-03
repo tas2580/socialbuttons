@@ -3,7 +3,7 @@
 	"type": "phpbb-extension",
 	"description": "Displays social media buttons at topic pages and at the forum index. The number of shares is retrieved from the server to protect the privacy.",
 	"homepage": "https://tas2580.net/downloads/phpbb-social-media-buttons/",
-	"version": "1.0.0-RC2",
+	"version": "1.0.0-RC3",
 	"keywords": ["phpbb", "extension", "social", "topics","facebook","twitter","google","linkedin","socialmedia"],
 	"license": "GPL-2.0",
 	"authors": [
