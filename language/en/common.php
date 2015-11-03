@@ -32,7 +32,6 @@ if (empty($lang) || !is_array($lang))
 // ’ » “ ” …
 //
 $lang = array_merge($lang, array(
-	'ACP_CACHE_PURGE_SUCCESS'	=> 'Deleted all files from cache.',
 	'ACP_CACHETIME'				=> 'Cachetime',
 	'ACP_CACHETIME_EXPLAIN'		=> 'How long should the data for the number of shared be cached?',
 	'ACP_DISPLAY_ON_INDEX'			=> 'Display on index',
@@ -56,8 +55,6 @@ $lang = array_merge($lang, array(
 	'ACP_POSITION_ALL'				=> 'At the top and at the bottom',
 	'ACP_POSITION_BOTTOM'			=> 'At the bottom',
 	'ACP_POSITION_TOP'				=> 'At the top',
-	'ACP_PURGE_CACHE'			=> 'Purge Cache',
-	'ACP_PURGE_CACHE_EXPLAIN'		=> 'Delete all files from cache',
 	'ACP_SAVED'					=> 'Social Media Buttons settings updated.',
 	'ACP_SET_PLATFORMS'			=> 'Enable platforms',
 	'ACP_SETTINGS'				=> 'Settings',
@@ -72,8 +69,6 @@ $lang = array_merge($lang, array(
 	'ACP_TWITTER'					=> 'Twitter',
 	'ACP_GOOGLE'					=> 'Google Plus',
 	'ACP_LINKEDIN'					=> 'Linkedin',
-	'CACHE_PATH_NOT_WRITEABLE'	=> 'The cache path "%s" is not writeable!',
-	'RUN_NOW'					=> 'Run Now',
 	'SHARE_FACEBOOK'				=> 'Share on Facebook',
 	'SHARE_TWITTER'				=> 'Share on Twitter',
 	'SHARE_GOOGLEPLUS'			=> 'Share on Google+',

@@ -32,7 +32,6 @@ if (empty($lang) || !is_array($lang))
 // ’ » “ ” …
 //
 $lang = array_merge($lang, array(
-	'ACP_CACHE_PURGE_SUCCESS'	=> 'Alle Dateien im Cache wurden gelöscht.',
 	'ACP_CACHETIME'				=> 'Cachezeit',
 	'ACP_CACHETIME_EXPLAIN'		=> 'Wie lange sollen die Daten für die Anzahl der Shares gecached werden?',
 	'ACP_DISPLAY_ON_INDEX'			=> 'Im der Foren Übersicht anzeigen',
@@ -56,8 +55,6 @@ $lang = array_merge($lang, array(
 	'ACP_POSITION_BOTTOM'			=> 'Nur unten',
 	'ACP_POSITION_EXPLAIN'			=> 'Wähle eine Position an der die Buttons in der Themen-Ansicht angezeigt werden sollen.',
 	'ACP_POSITION_TOP'				=> 'Nur oben',
-	'ACP_PURGE_CACHE'			=> 'Cache löschen',
-	'ACP_PURGE_CACHE_EXPLAIN'		=> 'Löscht alle Dateien aus dem Cache',
 	'ACP_SAVED'					=> 'Social Media Buttons Einstellungen geändert.',
 	'ACP_SET_PLATFORMS'			=> 'Platformen aktivieren',
 	'ACP_SETTINGS'				=> 'Einstellungen',
@@ -72,8 +69,6 @@ $lang = array_merge($lang, array(
 	'ACP_TWITTER'					=> 'Twitter',
 	'ACP_GOOGLE'					=> 'Google Plus',
 	'ACP_LINKEDIN'					=> 'Linkedin',
-	'CACHE_PATH_NOT_WRITEABLE'	=> 'Der Cache Pfad "%s" ist nicht beschreibbar!',
-	'RUN_NOW'					=> 'Ausführen',
 	'SHARE_FACEBOOK'				=> 'Auf Facebook teilen',
 	'SHARE_GOOGLEPLUS'			=> 'Auf Google+ teilen',
 	'SHARE_LINKEDIN'				=> 'Auf Linkedin teilen',

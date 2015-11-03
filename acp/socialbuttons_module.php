@@ -15,32 +15,13 @@ class socialbuttons_module
 
 	public function main($id, $mode)
 	{
-		global $config, $user, $template, $request, $phpbb_root_path;
+		global $config, $user, $template, $request;
 
 		$user->add_lang_ext('tas2580/socialbuttons', 'common');
 		$this->tpl_name = 'acp_socialbuttons_body';
 		$this->page_title = $user->lang('ACP_SOCIALBUTTONS_TITLE');
 
 		add_form_key('acp_socialbuttons');
-
-		// Purge the cache
-		if ($request->is_set_post('action_purge_cache'))
-		{
-			if (!check_form_key('acp_socialbuttons'))
-			{
-				trigger_error($user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
-			}
-			$cache_path = $phpbb_root_path . 'ext/tas2580/socialbuttons/cache/';
-			$handle = opendir($cache_path);
-			while (false !== ($file = readdir($handle)))
-			{
-				if (is_file($cache_path . $file))
-				{
-					unlink($cache_path . $file);
-				}
-			}
-			trigger_error($user->lang('ACP_CACHE_PURGE_SUCCESS') . adm_back_link($this->u_action));
-		}
 
 		// Form is submitted
 		if ($request->is_set_post('submit'))
