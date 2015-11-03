@@ -116,7 +116,7 @@ class socialbuttons_module
 	private function button_style($selected)
 	{
 		global  $phpbb_extension_manager;
-		$path = $phpbb_extension_manager->get_extension_path('tas2580/socialbuttons', true) . 'styles/prosilver/theme/images/';
+		$path = $phpbb_extension_manager->get_extension_path('tas2580/socialbuttons', true) . 'images/';
 		$return = '';
 		for ($i = 1; $i <= 10; $i++)
 		{
