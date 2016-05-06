@@ -227,10 +227,10 @@ class listener implements EventSubscriberInterface
 			{
 				$querys['facebook'] = 'https://www.facebook.com/plugins/like.php?&layout=box_count&href=' . $url;
 			}
-			if (isset($this->config['socialbuttons_twitter']) && ($this->config['socialbuttons_twitter'] == 1))
+			/*if (isset($this->config['socialbuttons_twitter']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
 				$querys['twitter'] = 'https://cdn.api.twitter.com/1/urls/count.json?url=' . $url;
-			}
+			}*/
 			if (isset($this->config['socialbuttons_google']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
 				$querys['google'] = 'https://plusone.google.com/_/+1/fastbutton?url=' . $url;
@@ -295,10 +295,10 @@ class listener implements EventSubscriberInterface
 
 			preg_match('#<span class="pluginCountTextDisconnected">([0-9]+)</span>#s', $content['facebook'], $matches);
 			$shares['facebook'] = isset($matches[1]) ? $matches[1] : 0 ;
-
+/*
 			$pageinfo = json_decode($content['twitter'], true);
 			$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
-
+*/
 			$pageinfo = json_decode($content['linkedin'], true);
 			$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 
