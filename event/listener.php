@@ -22,7 +22,7 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\template\template */
 	protected $template;
 
-	/** @var \phpbb\user\user */
+	/** @var \phpbb\user */
 	protected $user;
 
 	/** @var \phpbb\request\request */
@@ -63,7 +63,7 @@ class listener implements EventSubscriberInterface
 	* @static
 	* @access public
 	*/
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return array(
 			'core.viewtopic_post_row_after'			=> 'display_og_description',
@@ -206,7 +206,6 @@ class listener implements EventSubscriberInterface
 	* Get the number of shares
 	*
 	* @param	string	$url		The URL to get the shares for
-	* @param	string	$token	Unique string to identify the page
 	* @return	array
 	* @access private
 	*/
@@ -222,6 +221,7 @@ class listener implements EventSubscriberInterface
 		// If cache is too old or we have no cache, query the platforms
 		if ($shares === false)
 		{
+			$content = $querys = array();
 			// Collect the querys
 			if (isset($this->config['socialbuttons_facebook']) && ($this->config['socialbuttons_facebook'] == 1))
 			{
@@ -245,6 +245,7 @@ class listener implements EventSubscriberInterface
 			{
 				// Set curl options for each URL
 				$mh = curl_multi_init();
+				$handle = array();
 				foreach ($querys as $platform => $query_url)
 				{
 					$ch = curl_init();
