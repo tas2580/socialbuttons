@@ -1,4 +1,4 @@
-<img src="https://tas2580.net/downloads/image-7.png" width="600" height="80" alt="phpBB 3.1 - Social Media Buttons" />
+<img src="https://tas2580.net/downloads/phpbb-social-media-buttons/image.png" width="600" height="80" alt="phpBB 3.1 - Social Media Buttons" />
 
 This is an extension for the phpBB forums software. You need an instalation of phpBB 3.1.x to use this.
 
@@ -26,7 +26,7 @@ SUPPORT
 -------
 You can get support for this extension on <a href="https://www.phpbb.com/community/viewtopic.php?f=456&t=2281326">phpbb.com</a>
 or in german on <a href="https://www.phpbb.de/community/viewtopic.php?f=149&t=232974">phpbb.de</a>. For more informations look at
-<a href="https://tas2580.net/downloads/download-7.html">my Website</a>.
+<a href="https://tas2580.net/downloads/phpbb-social-media-buttons/">my Website</a>.
 
 Help to translate
 -----------------
@@ -36,4 +36,9 @@ LICENSE
 -------
 <a href="http://opensource.org/licenses/gpl-2.0.php">GNU General Public License v2</a>
 
+Automated Testing
+-------
+We use automated unit tests to prevent regressions. Check out our travis build below:
+
 [![Build Status](https://travis-ci.org/tas2580/socialbuttons.svg?branch=master)](https://travis-ci.org/socialbuttons)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tas2580/socialbuttons/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tas2580/socialbuttons/?branch=master)
