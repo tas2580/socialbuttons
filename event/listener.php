@@ -37,12 +37,12 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config				$config				Config Object
-	* @param \phpbb\template\template			$template				Template object
-	* @param \phpbb\user						$user				User object
-	* @param \phpbb\request\request				$request				Request object
-	* @param \phpbb\cache\driver\driver_interface	$cache				Cache driver interface
-	* @param string							$phpbb_root_path		phpbb_root_path
+	* @param \phpbb\config\config					$config					Config Object
+	* @param \phpbb\template\template				$template				Template object
+	* @param \phpbb\user							$user					User object
+	* @param \phpbb\request\request					$request				Request object
+	* @param \phpbb\cache\driver\driver_interface	$cache					Cache driver interface
+	* @param string									$phpbb_root_path		phpbb_root_path
 	* @access public
 	*/
 	public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user, \phpbb\request\request $request, \phpbb\cache\driver\driver_interface $cache, $phpbb_root_path)
@@ -110,26 +110,26 @@ class listener implements EventSubscriberInterface
 			$this->template->assign_vars(array(
 				'S_SHOWSHARES'			=> true,
 				'SHARES_FACEBOOK'		=> isset($shares['facebook']) ? (int) $shares['facebook'] : 0,
-				'SHARES_TWITTER'			=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
+				'SHARES_TWITTER'		=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
 				'SHARES_GOOGLE'			=> isset($shares['google']) ? (int) $shares['google'] : 0,
-				'SHARES_LINKEDIN'			=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
+				'SHARES_LINKEDIN'		=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
 			));
 		}
 
 		// Display the buttons and the OG meta tags
 		$this->template->assign_vars(array(
 			'SOCIAL_MEDIA_CLASS'		=> 'socialmediabuttons' . (isset($this->config['socialbuttons_style']) ? $this->config['socialbuttons_style'] : 1),
-			'S_ENABLE_BUTTONS'		=> $enable_buttons,
+			'S_ENABLE_BUTTONS'			=> $enable_buttons,
 			'U_SHARELINK'				=> urlencode($url),
 			'S_FACEBOOK'				=> isset($this->config['socialbuttons_facebook']) ? $this->config['socialbuttons_facebook'] : '',
-			'S_TWITTER'				=> isset($this->config['socialbuttons_twitter']) ? $this->config['socialbuttons_twitter'] : '',
-			'S_GOOGLE'				=> isset($this->config['socialbuttons_google']) ? $this->config['socialbuttons_google'] : '',
+			'S_TWITTER'					=> isset($this->config['socialbuttons_twitter']) ? $this->config['socialbuttons_twitter'] : '',
+			'S_GOOGLE'					=> isset($this->config['socialbuttons_google']) ? $this->config['socialbuttons_google'] : '',
 			'S_LINKEDIN'				=> isset($this->config['socialbuttons_linkedin']) ? $this->config['socialbuttons_linkedin'] : '',
-			'ENABLE_OG'				=> isset($this->config['socialbuttons_enable_og']) ? $this->config['socialbuttons_enable_og'] : '',
+			'ENABLE_OG'					=> isset($this->config['socialbuttons_enable_og']) ? $this->config['socialbuttons_enable_og'] : '',
 			'ENABLE_OG_TITLE'			=> isset($this->config['socialbuttons_enable_og_title']) ? $this->config['socialbuttons_enable_og_title'] : '',
-			'OG_IMAGE'				=> isset($this->config['socialbuttons_og_image']) ? $this->config['socialbuttons_og_image'] : '',
+			'OG_IMAGE'					=> isset($this->config['socialbuttons_og_image']) ? $this->config['socialbuttons_og_image'] : '',
 			'OG_URL'					=> $url,
-			'OG_TITLE'				=> $event['page_title'],
+			'OG_TITLE'					=> $event['page_title'],
 		));
 		$this->user->add_lang_ext('tas2580/socialbuttons', 'common');
 	}
@@ -173,9 +173,9 @@ class listener implements EventSubscriberInterface
 			$this->template->assign_vars(array(
 				'S_SHOWSHARES'			=> true,
 				'SHARES_FACEBOOK'		=> isset($shares['facebook']) ? (int) $shares['facebook'] : 0,
-				'SHARES_TWITTER'			=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
+				'SHARES_TWITTER'		=> isset($shares['twitter']) ? (int) $shares['twitter'] : 0,
 				'SHARES_GOOGLE'			=> isset($shares['google']) ? (int) $shares['google'] : 0,
-				'SHARES_LINKEDIN'			=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
+				'SHARES_LINKEDIN'		=> isset($shares['linkedin']) ? (int) $shares['linkedin'] : 0,
 			));
 		}
 
@@ -184,19 +184,19 @@ class listener implements EventSubscriberInterface
 		$position = isset($this->config['socialbuttons_position']) ? $this->config['socialbuttons_position'] : 2;
 		$this->template->assign_vars(array(
 			'SOCIAL_MEDIA_CLASS'		=> 'socialmediabuttons' . (isset($this->config['socialbuttons_style']) ? $this->config['socialbuttons_style'] : 1),
-			'S_ENABLE_BUTTONS'		=> $enable_buttons,
+			'S_ENABLE_BUTTONS'			=> $enable_buttons,
 			'S_FACEBOOK'				=> isset($this->config['socialbuttons_facebook']) ? $this->config['socialbuttons_facebook'] : '',
-			'S_TWITTER'				=> isset($this->config['socialbuttons_twitter']) ? $this->config['socialbuttons_twitter'] : '',
-			'S_GOOGLE'				=> isset($this->config['socialbuttons_google']) ? $this->config['socialbuttons_google'] : '',
+			'S_TWITTER'					=> isset($this->config['socialbuttons_twitter']) ? $this->config['socialbuttons_twitter'] : '',
+			'S_GOOGLE'					=> isset($this->config['socialbuttons_google']) ? $this->config['socialbuttons_google'] : '',
 			'S_LINKEDIN'				=> isset($this->config['socialbuttons_linkedin']) ? $this->config['socialbuttons_linkedin'] : '',
-			'S_SHOW_AT_TOP'			=> ($position == 0 || $position == 1) ? true : false,
-			'S_SHOW_AT_BOTTOM'		=> ($position == 0 || $position == 2) ? true : false,
+			'S_SHOW_AT_TOP'				=> ($position == 0 || $position == 1) ? true : false,
+			'S_SHOW_AT_BOTTOM'			=> ($position == 0 || $position == 2) ? true : false,
 			'U_TOPICLINK'				=> urlencode($url),
 			'OG_URL'					=> $url,
-			'ENABLE_OG'				=> isset($this->config['socialbuttons_enable_og']) ? $this->config['socialbuttons_enable_og'] : '',
-			'OG_IMAGE'				=> isset($this->config['socialbuttons_og_image']) ? $this->config['socialbuttons_og_image'] : '',
+			'ENABLE_OG'					=> isset($this->config['socialbuttons_enable_og']) ? $this->config['socialbuttons_enable_og'] : '',
+			'OG_IMAGE'					=> isset($this->config['socialbuttons_og_image']) ? $this->config['socialbuttons_og_image'] : '',
 			'ENABLE_OG_TITLE'			=> isset($this->config['socialbuttons_enable_og_title']) ? $this->config['socialbuttons_enable_og_title'] : '',
-			'OG_TITLE'				=> $event['page_title'],
+			'OG_TITLE'					=> $event['page_title'],
 			'ENABLE_OG_DESC'			=> ((isset($this->config['socialbuttons_enable_og_desc']) && $this->config['socialbuttons_enable_og_desc']) || in_array($event['topic_data']['forum_id'], $forums)),
 		));
 		$this->user->add_lang_ext('tas2580/socialbuttons', 'common');
@@ -227,10 +227,10 @@ class listener implements EventSubscriberInterface
 			{
 				$querys['facebook'] = 'https://www.facebook.com/plugins/like.php?&layout=box_count&href=' . $url;
 			}
-			/*if (isset($this->config['socialbuttons_twitter']) && ($this->config['socialbuttons_twitter'] == 1))
+			if (isset($this->config['socialbuttons_twitter']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
-				$querys['twitter'] = 'https://cdn.api.twitter.com/1/urls/count.json?url=' . $url;
-			}*/
+				$querys['twitter'] = 'http://opensharecount.com/count.json?url=' . $url;
+			}
 			if (isset($this->config['socialbuttons_google']) && ($this->config['socialbuttons_twitter'] == 1))
 			{
 				$querys['google'] = 'https://plusone.google.com/_/+1/fastbutton?url=' . $url;
@@ -295,10 +295,10 @@ class listener implements EventSubscriberInterface
 
 			preg_match('#<span class="pluginCountTextDisconnected">([0-9]+)</span>#s', $content['facebook'], $matches);
 			$shares['facebook'] = isset($matches[1]) ? $matches[1] : 0 ;
-/*
+
 			$pageinfo = json_decode($content['twitter'], true);
 			$shares['twitter'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
-*/
+
 			$pageinfo = json_decode($content['linkedin'], true);
 			$shares['linkedin'] = isset($pageinfo['count']) ? $pageinfo['count'] : 0;
 
