@@ -8,14 +8,14 @@
 */
 if (!defined('IN_PHPBB'))
 {
-    exit;
+	exit;
 }
 if (empty($lang) || !is_array($lang))
 {
-    $lang = array();
+	$lang = array();
 }
 $lang = array_merge($lang, array(
-    'SOCIAL_BUTTONS'			=> 'Jaga seda sotsiaalvõrgustikus',
+	'SOCIAL_BUTTONS'			=> 'Jaga seda sotsiaalvõrgustikus',
 	'SHARE_FACEBOOK'			=> 'Jaga Facebookis',
 	'SHARE_TWITTER'				=> 'Jaga Twitteris',
 	'SHARE_GOOGLEPLUS'			=> 'Jaga Google+\'is',
