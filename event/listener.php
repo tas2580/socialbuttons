@@ -251,6 +251,8 @@ class listener implements EventSubscriberInterface
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $query_url);
 					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+					curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,3);
+					curl_setopt($ch, CURLOPT_TIMEOUT, 3);
 					curl_setopt($ch, CURLOPT_NOBODY, false);
 					curl_setopt($ch, CURLOPT_HEADER, false);
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
