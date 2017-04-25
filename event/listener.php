@@ -295,7 +295,7 @@ class listener implements EventSubscriberInterface
 			preg_match('#<div id="aggregateCount" class="Oy">([0-9]+)</div>#s', $content['google'], $matches);
 			$shares['google'] = isset($matches[1]) ? $matches[1] : 0;
 
-			preg_match('#<span class="pluginCountTextDisconnected">([0-9]+)</span>#s', $content['facebook'], $matches);
+			preg_match('#<span id="u_0_1">([0-9]+)</span>#s', $content['facebook'], $matches);
 			$shares['facebook'] = isset($matches[1]) ? $matches[1] : 0 ;
 
 			$pageinfo = json_decode($content['twitter'], true);
